@@ -1,12 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavLink} from "react-router-dom";
 
-import {Navbar, Nav, NavDropdown, Modal, Button} from 'react-bootstrap';
-import AddFormContainer from "../ProjectForm/AddFormContainer";
+import {Navbar, Nav, NavDropdown, Modal, Button, Form, InputGroup, FormControl, Col} from 'react-bootstrap';
+import AddFormContainer from "../containers/AddFormContainer";
 import * as ROUTES from "../../constants/routes";
+import Fuse from 'fuse.js';
+import {useDB} from "../../context/DBContext";
 
 
 const PBLNavBar = (props) => {
+
+    const [search, setSearch] = useState('');
+    const { setDisplayedProjects, projects } = useDB(); // for fuse live search
+
+    // use effect on search bar input field
+    useEffect(() => {
+        // searching in allProjects
+        const fuse = new Fuse(projects, {
+            keys: [
+                'projectName',
+                'projectDescription',
+            ]
+        });
+        const result = fuse.search(search).map(({ item }) => item); // convert the result to array of objects
+        // if there is a result project and the search input field value contains more than 3 characters
+        if (search.length > 3 && result.length > 0 ) {
+            setDisplayedProjects( prev => result ); // update the projects to be displayed
+        } else { // reset to all projects
+            setDisplayedProjects( projects );
+        }
+    }, [search])
 
     return (
         <>
@@ -45,6 +68,24 @@ const PBLNavBar = (props) => {
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
+                    <Form>
+                        <Col xs="auto">
+                            <Form.Label htmlFor="inlineFormInputGroup" srOnly>
+                                Search Projects
+                            </Form.Label>
+                            <InputGroup className="mb-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text>@</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl id="inlineFormInputGroup"
+                                             placeholder="Search Projects"
+                                             value={search}
+                                             onChange={(e) => setSearch(e.target.value)}
+                                />
+                            </InputGroup>
+                        </Col>
+                    </Form>
+
 
                     {
                         !props.currentUser ? (

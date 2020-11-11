@@ -12,7 +12,15 @@
   <component name="ChangeListManager">
     <list default="true" id="f9baec77-2667-4bb5-8fdf-45df7eebcce8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar/NavBarContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/containers/NavBarContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProjectForm/AddFormContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/containers/AddFormContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/DBContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/DBContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/catalogue.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/catalogue.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +35,8 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -47,13 +57,14 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Footers" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\helpers" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\LogIn" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\contaners" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Footers" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\helpers" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -69,7 +80,11 @@
       <workItem from="1604851268891" duration="9870000" />
       <workItem from="1604938803869" duration="7000" />
       <workItem from="1604938832788" duration="8732000" />
-      <workItem from="1605000562226" duration="6681000" />
+      <workItem from="1605000562226" duration="7026000" />
+      <workItem from="1605014224701" duration="7008000" />
+      <workItem from="1605034518845" duration="803000" />
+      <workItem from="1605037517304" duration="1274000" />
+      <workItem from="1605100976746" duration="5354000" />
     </task>
     <servers />
   </component>
@@ -93,6 +108,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="630" y="291" key="#ESLint/0.0.1536.824@0.0.1536.824" timestamp="1604848836614" />
+    <state x="561" y="271" key="#Scopes" timestamp="1605024257002">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="561" y="271" key="#Scopes/0.0.1536.824@0.0.1536.824" timestamp="1605024257002" />
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604858711885">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

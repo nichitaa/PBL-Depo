@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useDB } from "../../context/DBContext";
-import AddFormModal from "./AddFormModal";
+import AddFormModal from "../ProjectForm/AddFormModal";
 
 const AddFormContainer = ({hideModal}) => {
 

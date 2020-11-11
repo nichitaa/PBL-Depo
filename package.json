@@ -8,6 +8,8 @@
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^4.5.3",
     "firebase": "^8.0.1",
+    "fuse": "^0.4.0",
+    "fuse.js": "^6.4.3",
     "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",

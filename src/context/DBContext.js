@@ -14,6 +14,8 @@ export const DBProvider = ({children}) => {
 
     // all projects from db
     const [projects, setProjects] = useState([]);
+    // displayed projects
+    const [displayedProjects, setDisplayedProjects] = useState([]);
 
     // user projects data
     const [userProjectsData, setUserProjectsData] = useState({ data: [] });
@@ -24,12 +26,15 @@ export const DBProvider = ({children}) => {
     // current project
     const [projState, setProjState] = useState([]);
 
+    let all = [];
+
     // get projects by filters
     const getProjects = (orderBy, direction) => {
         const unsubscribe = db.collection('ProjectForm')
             .orderBy(orderBy, direction)
             .onSnapshot((snapshot) => {
-                setProjects(snapshot.docs.map((doc) => doc.data()))
+                setProjects(snapshot.docs.map((doc) => doc.data()));
+                setDisplayedProjects(snapshot.docs.map((doc) => doc.data()));
             });
         return () => unsubscribe();
     }
@@ -200,7 +205,11 @@ export const DBProvider = ({children}) => {
 
     const value = {
         projects, // all projects state
+        setProjects, // update state for fuse live search
         getProjects, // function to get the projects depending on filters
+
+        displayedProjects,
+        setDisplayedProjects,
 
         userProjects: userProjectsData.data, // only users projects data, if any and user logged in
 

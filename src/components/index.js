@@ -5,10 +5,10 @@ export { default as FilterModal } from './CardGrid/FilterModal/FilterModal';
 
 // *********** Add new Project Form ************
 export { default as  AddFormModal } from './ProjectForm/AddFormModal';
-export { default as  AddFormContainer } from './ProjectForm/AddFormContainer';
+export { default as  AddFormContainer } from './containers/AddFormContainer';
 
 // *********** NavBar ***************************
-export { default as  NavBarContainer } from './NavBar/NavBarContainer';
+export { default as  NavBarContainer } from './containers/NavBarContainer';
 export { default as  NavBar } from './NavBar/NavBar';
 
 // *********** Project Feedback ******************

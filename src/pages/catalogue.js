@@ -6,7 +6,7 @@ import {CardGrid, FilterModal} from "../components";
 
 export default function Catalogue() {
 
-    const { projects } = useDB();
+    const { displayedProjects } = useDB();
 
     const [showFilter, setShowFilter] = useState(false);
 
@@ -29,7 +29,7 @@ export default function Catalogue() {
                    onHide={() => setShowFilter(false)}
             > <FilterModal/>
             </Modal>
-            <CardGrid projects={projects}/>
+            <CardGrid projects={displayedProjects}/>
         </>
     )
 }
