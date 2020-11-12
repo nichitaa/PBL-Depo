@@ -1,8 +1,9 @@
-export { default as Home } from './home';
-export { default as Catalogue } from './catalogue';
-export { default as User } from './user';
-export { default as SignUp } from './signup';
-export { default as LogIn } from './login';
-export { default as ForgotPassword } from './forgotPassword'
-export { default as AboutUs } from './aboutus';
-export { default as ProjectPage } from './projectPage'
+export { default as Home } from './home.jsx';
+export { default as Catalogue } from './catalogue.jsx';
+export { default as User } from './user.jsx';
+export { default as SignUp } from './signup.jsx';
+export { default as LogIn } from './login.jsx';
+export { default as ForgotPassword } from './forgotPassword.jsx'
+export { default as AboutUs } from './aboutus.jsx';
+export { default as ProjectPage } from './projectPage.jsx'
+export { default as EditProject } from './editProject.jsx'

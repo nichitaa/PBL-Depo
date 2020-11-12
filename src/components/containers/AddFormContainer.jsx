@@ -1,6 +1,11 @@
 import React, {useState} from 'react';
-import { useDB } from "../../context/DBContext";
+import {useDB} from "../../context/DBContext";
 import AddFormModal from "../ProjectForm/AddFormModal";
+import {SolarSystemLoading} from "react-loadingg";
+
+const LoadingComponent = () => {
+    return <div><SolarSystemLoading color="#751fab" site="large"/></div>
+}
 
 const AddFormContainer = ({hideModal}) => {
 
@@ -30,11 +35,10 @@ const AddFormContainer = ({hideModal}) => {
             [e.target.name]: value
         });
     }
-    const imageTypes = ['image/png', 'image/jpeg'];
-    let selectedImage = null;
     // on image upload
     const onImageChange = (e) => {
-        selectedImage = e.target.files[0]; // get the first image
+        const imageTypes = ['image/png', 'image/jpeg'];
+        let selectedImage = e.target.files[0]; // get the first image
         if (selectedImage && imageTypes.includes(selectedImage.type)) { // validate, if not jpeg/pgn throw error
             setImg(selectedImage);
         } else {
@@ -62,22 +66,32 @@ const AddFormContainer = ({hideModal}) => {
     const onFormSubmit = async (e) => {
         // prevent from refreshing the page
         e.preventDefault()
-        setLoading(true)
-        await SubmitNewProjectForm(img, report, formState)
-        hideModal()
-        setLoading(false)
-        clearForm();
+        if (img !== null && report !== null){
+            setLoading(true)
+            await SubmitNewProjectForm(img, report, formState)
+            hideModal()
+            setLoading(false)
+            clearForm();
+        } else {
+            alert('Please Upload a background image and the report in pdf format!')
+        }
     }
 
     return (
-        <AddFormModal formState={formState}
-                      onChangeHandler={onChangeHandler}
-                      onImageChange={onImageChange}
-                      onPdfReportChange={onPdfReportChange}
-                      onFormSubmit={onFormSubmit}
-                      hideModal={hideModal}
-                      loading={loading}
-        />
+        <>
+            {
+                loading ?
+                    <LoadingComponent/> :
+                    <AddFormModal formState={formState}
+                                  onChangeHandler={onChangeHandler}
+                                  onImageChange={onImageChange}
+                                  onPdfReportChange={onPdfReportChange}
+                                  onFormSubmit={onFormSubmit}
+                                  hideModal={hideModal}
+                                  loading={loading}
+                    />
+            }
+        </>
     );
 }
 

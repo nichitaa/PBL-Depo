@@ -6,6 +6,7 @@ export { default as FilterModal } from './CardGrid/FilterModal/FilterModal';
 // *********** Add new Project Form ************
 export { default as  AddFormModal } from './ProjectForm/AddFormModal';
 export { default as  AddFormContainer } from './containers/AddFormContainer';
+export { default as  EditForm } from './ProjectForm/EditForm';
 
 // *********** NavBar ***************************
 export { default as  NavBarContainer } from './containers/NavBarContainer';

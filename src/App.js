@@ -4,7 +4,7 @@ import {PrivateRoute, ScrollToTop } from "./helpers";
 // routes
 import * as ROUTES from './constants/routes';
 // pages
-import {Home, Catalogue, User, SignUp, LogIn, ForgotPassword, AboutUs, ProjectPage} from "./pages";
+import {Home, Catalogue, User, SignUp, LogIn, ForgotPassword, AboutUs, ProjectPage, EditProject} from "./pages";
 // my custom components
 import { Footer, NavBarContainer } from "./components";
 
@@ -21,7 +21,9 @@ export default function App() {
 
                     <PrivateRoute exact path={ROUTES.USER} component={User}/>
 
-                    <Route path={ROUTES.PROJECT_ID} component={ProjectPage}/>
+                    <Route exact path={ROUTES.PROJECT_ID} component={ProjectPage}/>
+
+                    <Route exact path={ROUTES.EDIT_PROJECT} component={EditProject}/>
 
                     <Route exact path={ROUTES.ABOUT_US} component={AboutUs}/>
 
@@ -30,8 +32,14 @@ export default function App() {
                     <Route exact path={ROUTES.LOG_IN} component={LogIn}/>
 
                     <Route exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword}/>
+
+                    <Route render={() => {
+                        return <>
+                            PAGE NOT FOUND 404 :(
+                        </>
+                    }} />
                 </Switch>
-                <Footer/>
+                {/*<Footer/>*/}
             </div>
         </Router>
     );

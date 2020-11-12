@@ -18,7 +18,7 @@ export const DBProvider = ({children}) => {
     const [displayedProjects, setDisplayedProjects] = useState([]);
 
     // user projects data
-    const [userProjectsData, setUserProjectsData] = useState({ data: [] });
+    const [userProjectsData, setUserProjectsData] = useState({data: []});
 
     // project feedback
     const [projFeedback, setProjFeedback] = useState([]);
@@ -26,7 +26,9 @@ export const DBProvider = ({children}) => {
     // current project
     const [projState, setProjState] = useState([]);
 
-    let all = [];
+    // current project edit permissions
+    const [editPermission, setEditPermission] = useState(false);
+
 
     // get projects by filters
     const getProjects = (orderBy, direction) => {
@@ -39,8 +41,7 @@ export const DBProvider = ({children}) => {
         return () => unsubscribe();
     }
 
-    // the form of adding new project
-    const SubmitNewProjectForm = async (img, report, formState) => {
+    const UploadProject = async (projId, img, report, form) => {
         // upload bg image to storage
         const storageRef = storage.ref();
         const fileRef = storageRef.child(img.name);
@@ -52,10 +53,10 @@ export const DBProvider = ({children}) => {
 
         // data object to be stored
         let data = {
-            projectName: formState.projectName,
-            projectDescription: formState.projectDescription,
-            projectProblemDescription: formState.projectProblemDescription,
-            projectTheoryDescription: formState.projectTheoryDescription,
+            projectName: form.projectName,
+            projectDescription: form.projectDescription,
+            projectProblemDescription: form.projectProblemDescription,
+            projectTheoryDescription: form.projectTheoryDescription,
             projectImageURL: await fileRef.getDownloadURL(),
             projectReportURL: await reportRef.getDownloadURL(),
             createdAt: new Date(),
@@ -64,22 +65,45 @@ export const DBProvider = ({children}) => {
             rating: 5,
         }
 
+        const document = db.collection('ProjectForm')
+            .doc(projId)
+            .set({
+                ...data,
+                projectId: projId,
+            }).then(() => {
+                alert('someone implement a cool pop up alert ' +
+                    'now close the alert and and look at the available projects!')
+                AddUserProject(projId, form)
+            }).catch(error => {
+                alert(error.message)
+            })
+        return document;
+    }
+
+    // the form of adding new project
+    const SubmitNewProjectForm = async (img, report, formState) => {
         // create a local document
         const document = db.collection('ProjectForm').doc()
         const documentId = document.id
+        await UploadProject(documentId, img, report, formState)
+    }
 
-        const response = await document.set({
-            ...data,
-            projectId: documentId,
-        }).then(() => {
-            alert('someone implement a cool pop up alert ' +
-                'now close the alert and and look at the available projects!')
-            AddUserProject(documentId, formState)
-        }).catch(error => {
-            alert(error.message)
-        })
+    // deleting the project by id
+    const DeleteProject = async (projId) => {
+        const unsubscribe = await db.collection('ProjectForm')
+            .doc(projId).delete().then(() => {
+                db.collection('UsersProjects')
+                    .doc(currentUser.uid).collection('UserProjects')
+                    .doc(projId).delete().then(() => {
+                        alert('Your project has been deleted successfully!')
+                })
+            })
+        return () => unsubscribe;
+    }
 
-        return response
+    // updates the project
+    const UpdateProjectForm = async (projId, img, report, form) => {
+        await UploadProject(projId, img, report, form)
     }
 
     // updates userProjects collection, when the new project was summited
@@ -103,8 +127,8 @@ export const DBProvider = ({children}) => {
     }
 
     // get proj details + feedbacks details by id ( updates the state of the projectPage )
-    const getProjectById = (projId) => {
-        const unsubscribe = db.collection('ProjectForm')
+    const getProjectById = async (projId) => {
+        const unsubscribe = await db.collection('ProjectForm')
             .doc(projId).get()
             .then(snapshot => {
                 setProjState(prevState => snapshot.data())
@@ -178,12 +202,28 @@ export const DBProvider = ({children}) => {
                         .then(snapshot => {
                             tempData.push(snapshot.data())
                             // update user projects with new data
-                            setUserProjectsData({data: tempData} )
+                            setUserProjectsData({data: tempData})
                         })
                 })
             }
             // stop listen to changes
             return () => unsubscribe()
+        }
+    }
+
+    const isUserProject = async (projId) => {
+        const docRef = await db.collection('UsersProjects')
+            .doc(currentUser.uid)
+            .collection('UserProjects')
+            .doc(projId)
+        const doc = await docRef.get()
+
+        if (doc.exists) {
+            setEditPermission(prev => true)
+            return true;
+        } else {
+            setEditPermission(prev => false)
+            return false;
         }
     }
 
@@ -198,7 +238,7 @@ export const DBProvider = ({children}) => {
     useEffect(() => {
         console.log("User State Changed!")
         // reset projects data
-        setUserProjectsData({ data: [] })
+        setUserProjectsData({data: []})
         // get the new projects data
         getUserProjects()
     }, [currentUser])
@@ -212,11 +252,15 @@ export const DBProvider = ({children}) => {
         setDisplayedProjects,
 
         userProjects: userProjectsData.data, // only users projects data, if any and user logged in
+        isUserProject,
 
         // individual project
         setProjState,
         projState,
         projFeedback,
+        editPermission,
+        UpdateProjectForm,
+        DeleteProject,
 
         SubmitNewProjectForm,
         getProjectById,

@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {NavLink} from "react-router-dom";
+import Fuse from 'fuse.js';
 
 import {Navbar, Nav, NavDropdown, Modal, Button, Form, InputGroup, FormControl, Col} from 'react-bootstrap';
+import {BsSearch} from "react-icons/bs";
 import AddFormContainer from "../containers/AddFormContainer";
-import * as ROUTES from "../../constants/routes";
-import Fuse from 'fuse.js';
-import {useDB} from "../../context/DBContext";
 
+import * as ROUTES from "../../constants/routes";
+import {useDB} from "../../context/DBContext";
 
 const PBLNavBar = (props) => {
 
@@ -23,8 +24,8 @@ const PBLNavBar = (props) => {
             ]
         });
         const result = fuse.search(search).map(({ item }) => item); // convert the result to array of objects
-        // if there is a result project and the search input field value contains more than 3 characters
-        if (search.length > 3 && result.length > 0 ) {
+        // if there is a result project and the search input field value contains more than 2 characters
+        if (search.length > 2 && result.length > 0 ) {
             setDisplayedProjects( prev => result ); // update the projects to be displayed
         } else { // reset to all projects
             setDisplayedProjects( projects );
@@ -75,7 +76,9 @@ const PBLNavBar = (props) => {
                             </Form.Label>
                             <InputGroup className="mb-2">
                                 <InputGroup.Prepend>
-                                    <InputGroup.Text>@</InputGroup.Text>
+                                    <InputGroup.Text>
+                                        <BsSearch/>
+                                    </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <FormControl id="inlineFormInputGroup"
                                              placeholder="Search Projects"
