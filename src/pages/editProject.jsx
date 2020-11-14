@@ -2,11 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import * as ROUTES from "../constants/routes";
 import {useDB} from "../context/DBContext";
-import UpdateProjectContainer from "../components/containers/UpdateProjectContainer";
-import {SemipolarLoading} from 'react-loadingg';
+import EditProjectContainer from "../components/containers/EditProjectContainer";
 import {useAuth} from "../context/AuthContext";
-
-const LoadingComponent = () => <div><SemipolarLoading/></div>
+import Loading from "../components/LoadingSpiner/Loading";
 
 export default function EditProject({match}) {
     const projId = match.params.id
@@ -45,8 +43,8 @@ export default function EditProject({match}) {
         <div>
             {
                 !editPermission ?
-                    <LoadingComponent/> :
-                    <UpdateProjectContainer projId={projId}/>
+                    <Loading/> :
+                    <EditProjectContainer projId={projId}/>
             }
         </div>
     )

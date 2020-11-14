@@ -12,13 +12,10 @@ import * as ROUTES from "../../constants/routes";
 
 const OneCard = ({project}) => {
     // console.log("One Project Card:", project)
-
     const ratingStars = [];
-
     for(let i=0; i<project.rating; i++) {
         ratingStars.push(  <React.Fragment key={i}><BsStar/>&nbsp;</React.Fragment> )
     }
-
     return (
         <Card style={{maxWidth: '18rem', maxHeight: '25rem', height: '25rem'}}>
             <div>

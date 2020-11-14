@@ -7,6 +7,8 @@ import * as ROUTES from "../constants/routes";
 
 export default function LogIn() {
 
+    const { currentUser } = useAuth();
+
     const emailRef = useRef();
     const passwordRef = useRef();
 
@@ -16,6 +18,12 @@ export default function LogIn() {
     const [loading, setLoading] = useState(false);
 
     const history = useHistory();
+
+    // if user is already logged in ,pop up alert message
+    if (currentUser) {
+        alert('You are already logged in!')
+        history.push(ROUTES.USER)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();

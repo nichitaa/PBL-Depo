@@ -5,7 +5,7 @@ import {useDB} from "../context/DBContext";
 import {CardGrid, FilterModal} from "../components";
 
 export default function Catalogue() {
-
+    // displayed projects are a copy of all projects, we use it in order to display the search projects
     const { displayedProjects } = useDB();
 
     const [showFilter, setShowFilter] = useState(false);

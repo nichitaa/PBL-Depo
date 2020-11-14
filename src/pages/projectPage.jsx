@@ -8,10 +8,8 @@ import {Button, Col, Container, Image, Row} from "react-bootstrap";
 import * as ROUTES from "../constants/routes";
 import {SolarSystemLoading} from 'react-loadingg';
 import {useAuth} from "../context/AuthContext";
+import Loading from "../components/LoadingSpiner/Loading";
 
-const LoadingComponent = () => {
-    return <div><SolarSystemLoading color="#751fab" site="large"/></div>
-}
 
 // function to show the number of start on the page, depending on project rating
 const getRating = (rating) => {
@@ -61,7 +59,7 @@ export default function ProjectPage({match}) {
                 }
                 // call async func
                 getEditPermission().then((response) => {
-                    console.log('response', response)
+                    console.log('Edit permission response: ', response)
                     setEdit(response) // set edit permissions to the response from asnync func
                 })
             }
@@ -73,7 +71,7 @@ export default function ProjectPage({match}) {
         <>
             {
                 loading ?
-                    <LoadingComponent/>
+                    <Loading/>
                     :
                     <>
                         <h1 className="text-center">Project Profile Page</h1>
@@ -110,8 +108,8 @@ export default function ProjectPage({match}) {
                                 ) :
                                 <p>No edit permissions</p>
                         }
-
-                        <br/><br/>
+                        <hr/>
+                        <br/>
                         <ProjectFeedbacks/>
                         <FeedbackForm/>
                     </>

@@ -4,29 +4,24 @@ import EditForm from "../ProjectForm/EditForm";
 import {db} from "../../firebase/firebase";
 import {useHistory} from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
-import { MeteorRainLoading  } from 'react-loadingg';
+import Loading from "../LoadingSpiner/Loading";
 
-const LoadingComponent = () => {
-    return <div><MeteorRainLoading color="#db150b" size="large"/></div>
-}
-
-const UpdateProjectContainer = ({projId}) => {
+const EditProjectContainer = ({projId}) => {
 
     const {UpdateProjectForm} = useDB(); // function to update project
     const history = useHistory(); // for redirecting back to project page when done
 
     const initialState = {
-        projectName: '',
-        projectDescription: '',
-        projectProblemDescription: '',
-        projectTheoryDescription: '',
-        projectImageURL: null,
-        projectReportURL: null,
-        createdAt: null,
+        title: '',
+        description: '',
+        problemDescription: '',
+        theoryDescription: '',
+        img: null,
+        report: null
     } // to get rid of the uncontrolled input error
     const [formState, setFormState] = useState(initialState);
-    const [img, setImg] = useState(null);
-    const [report, setReport] = useState(null);
+    // const [img, setImg] = useState(null);
+    // const [report, setReport] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -34,9 +29,14 @@ const UpdateProjectContainer = ({projId}) => {
         const fetchData = async () => {
             const data = await db.collection('ProjectForm')
                 .doc(projId).get()
-            setFormState(data.data())
+            await setFormState({
+                title: data.data().projectName,
+                description: data.data().projectDescription,
+                problemDescription: data.data().projectProblemDescription,
+                theoryDescription: data.data().projectTheoryDescription,
+            })
         }
-        fetchData();
+        fetchData().then();
     }, [])
 
     // HANDLERS
@@ -53,33 +53,36 @@ const UpdateProjectContainer = ({projId}) => {
         const imageTypes = ['image/png', 'image/jpeg'];
         let selectedImage = e.target.files[0]; // get the first image
         if (selectedImage && imageTypes.includes(selectedImage.type)) { // validate, if not jpeg/pgn throw error
-            setImg(selectedImage);
-            console.log("selected image props: ", selectedImage)
+            // setImg(selectedImage);
+            setFormState(prev => ({...prev, img: selectedImage,})) // update state with new image
+            console.log("IMAGE: ", selectedImage);
         } else {
             alert('Please upload a jpeg or png image ');
-            setImg(null);
+            setFormState(state => ( { ...state, img: null} ));
         }
     }
     // on pdf upload
     const onPdfReportChange = (e) => {
         let pdf = e.target.files[0]; // get the first file
         if (pdf && pdf.type === 'application/pdf') {
-            setReport(pdf);
-            console.log("selected pdf props: ", pdf)
+            // setReport(pdf);
+            setFormState(state => ({ ...state, report: pdf, })) // update state with new pdf
+            console.log("PDF: ", pdf);
         } else {
             alert("Please upload the report in pdf format!")
-            setReport(null);
+            // setReport(null);
+            setFormState(state => ({ ...state, report: null }))
         }
     }
     // on FORM SUBMIT
     const onFormSubmit = async (e) => {
         // prevent from refreshing the page
         e.preventDefault()
-        if (img !== null && report !== null){
+        if (formState.img !== null && formState.report !== null){
             setLoading(true) // set the loading screen
             // show loading for 4 seconds (until the projects is updated)
             setTimeout(async () => {
-                await UpdateProjectForm(projId, img, report, formState) // wait until data is updated
+                await UpdateProjectForm(projId, formState) // wait until data is updated
                 setLoading(false)
                 history.push(`${ROUTES.CATALOGUE}/${projId}`) // redirect ot project profile page
             }, 0) // by default the updating to our collection will be > 2 seconds so that we
@@ -95,7 +98,7 @@ const UpdateProjectContainer = ({projId}) => {
         <>
             {
                 loading ?
-                    (<LoadingComponent className="container-fluid"/>) :
+                    (<Loading className="container-fluid"/>) :
                     <EditForm formState={formState}
                               onChangeHandler={onChangeHandler}
                               onImageChange={onImageChange}
@@ -107,4 +110,4 @@ const UpdateProjectContainer = ({projId}) => {
     );
 }
 
-export default UpdateProjectContainer;
+export default EditProjectContainer;

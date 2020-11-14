@@ -14,17 +14,17 @@ const EditForm = (props) => {
                     </Form.Label><br/>
                     <Form.Label>Project Name</Form.Label>
                     <Form.Control placeholder="enter project name or team name"
-                                  name="projectName"
-                                  value={props.formState.projectName}
+                                  name="title"
+                                  value={props.formState.title}
                                   onChange={props.onChangeHandler}/>
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Form.Label>Your short project intro</Form.Label>
                     <Form.Control as="textarea"
                                   rows={5}
-                                  name="projectDescription"
+                                  name="description"
                                   placeholder="Short Intro"
-                                  value={props.formState.projectDescription}
+                                  value={props.formState.description}
                                   onChange={props.onChangeHandler}/>
                 </Form.Group>
                 <br/>
@@ -36,8 +36,8 @@ const EditForm = (props) => {
                                   rows={5}
                                   placeholder="Problem Description!
 What problem is suppose to solve your project idea ? "
-                                  name="projectProblemDescription"
-                                  value={props.formState.projectProblemDescription}
+                                  name="problemDescription"
+                                  value={props.formState.problemDescription}
                                   onChange={props.onChangeHandler}/>
                     <br/>
                     <Form.Control as="textarea"
@@ -45,8 +45,8 @@ What problem is suppose to solve your project idea ? "
                                   placeholder="The theory details section!
 Describes the theoretical parts of your project
 Examples: Info about formulas, computations, statistics which u used at implementation "
-                                  name="projectTheoryDescription"
-                                  value={props.formState.projectTheoryDescription}
+                                  name="theoryDescription"
+                                  value={props.formState.theoryDescription}
                                   onChange={props.onChangeHandler}/>
                     <br/>
                 </Form.Group>

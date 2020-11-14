@@ -6,7 +6,7 @@ import * as ROUTES from './constants/routes';
 // pages
 import {Home, Catalogue, User, SignUp, LogIn, ForgotPassword, AboutUs, ProjectPage, EditProject} from "./pages";
 // my custom components
-import { Footer, NavBarContainer } from "./components";
+import { NavBarContainer } from "./components";
 
 export default function App() {
     return (

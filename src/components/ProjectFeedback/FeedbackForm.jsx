@@ -38,7 +38,6 @@ const FeedbackForm = () => {
                              placeholder="Your feedback here!"
                              value={feedback}
                              onChange={(e) => setFeedback(e.target.value)}
-
                 />
             </InputGroup>
             <ButtonToolbar className="mb-3" aria-label="Toolbar with Button groups">
@@ -54,7 +53,6 @@ const FeedbackForm = () => {
             <Button type="submit">Rate this Project</Button>
         </Form>
     );
-
 }
 
 export default FeedbackForm;

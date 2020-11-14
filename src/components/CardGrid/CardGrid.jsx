@@ -2,7 +2,6 @@ import React from 'react';
 import OneCard from "./OneCard";
 
 const CardGrid = ({ projects }) => {
-
     return (
         <>
             <div className="row row-cols-1 row-cols-md-4" style={{marginLeft: "30px"}}>

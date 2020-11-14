@@ -16,6 +16,9 @@ export { default as  NavBar } from './NavBar/NavBar';
 export { default as FeedbackForm } from './ProjectFeedback/FeedbackForm';
 export { default as ProjectFeedbacks } from './ProjectFeedback/ProjectFeedbacks';
 
+// *********** Loading Spiner ********************
+export { default as Loading } from './LoadingSpiner/Loading';
+
 // *********** Footer ****************************
 export { default as Footer } from './Footer/Footer';
 

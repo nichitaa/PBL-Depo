@@ -7,32 +7,27 @@ const AddFormModal = (props) => {
             <Modal.Header closeButton>
                 <Modal.Title>Form to add a new PBL Project</Modal.Title>
             </Modal.Header>
-
             <Modal.Body>
                 <Form onSubmit={props.onFormSubmit}>
                     <Form.Group>
                         <Form.Label>Project Name</Form.Label>
                         <Form.Control placeholder="enter project name or team name"
-                                      name="projectName"
-                                      value={props.formState.projectName}
+                                      name="title"
+                                      value={props.formState.title}
                                       onChange={props.onChangeHandler}
                         />
                     </Form.Group>
-
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Your short project intro</Form.Label>
                         <Form.Control as="textarea"
                                       rows={5}
-                                      name="projectDescription"
+                                      name="description"
                                       placeholder="Short Intro"
-                                      value={props.formState.projectDescription}
+                                      value={props.formState.description}
                                       onChange={props.onChangeHandler}
                         />
                     </Form.Group>
-
                     <br/>
-
-
                     <Form.Group>
                         <Form.Label>
                             <h4>Project Details</h4>
@@ -41,8 +36,8 @@ const AddFormModal = (props) => {
                                       rows={5}
                                       placeholder="Problem Description!
 What problem is suppose to solve your project idea ? "
-                                      name="projectProblemDescription"
-                                      value={props.formState.projectProblemDescription}
+                                      name="problemDescription"
+                                      value={props.formState.problemDescription}
                                       onChange={props.onChangeHandler}
                         />
                         <br/>
@@ -51,13 +46,12 @@ What problem is suppose to solve your project idea ? "
                                       placeholder="The theory details section!
 Describes the theoretical parts of your project
 Examples: Info about formulas, computations, statistics which u used at implementation "
-                                      name="projectTheoryDescription"
-                                      value={props.formState.projectTheoryDescription}
+                                      name="theoryDescription"
+                                      value={props.formState.theoryDescription}
                                       onChange={props.onChangeHandler}
                         />
                         <br/>
                     </Form.Group>
-
                     <Form.File type="file"
                                id="custom-file"
                                label="Upload a background image for your PBL project page"
@@ -65,7 +59,6 @@ Examples: Info about formulas, computations, statistics which u used at implemen
                                onChange={props.onImageChange}
                     />
                     <br/><br/>
-
                     <Form.File type="file"
                                id="custom-file"
                                label="Upload the FULL pdf report of your PBL project"
@@ -73,7 +66,6 @@ Examples: Info about formulas, computations, statistics which u used at implemen
                                onChange={props.onPdfReportChange}
                     />
                     <br/><br/>
-
                     <ButtonToolbar className="justify-content-between"
                                    aria-label="Toolbar with Button groups">
                         <Button type="submit"
@@ -87,12 +79,10 @@ Examples: Info about formulas, computations, statistics which u used at implemen
                             Close Form
                         </Button>
                     </ButtonToolbar>
-
                 </Form>
             </Modal.Body>
-
             <Modal.Footer>
-                Some cool text for modal footer
+                Your are almost done!
             </Modal.Footer>
         </>
     );

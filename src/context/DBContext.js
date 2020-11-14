@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {db, storage} from "../firebase/firebase";
 import {useAuth} from "./AuthContext";
 
@@ -10,10 +10,11 @@ export const useDB = () => {
 
 export const DBProvider = ({children}) => {
 
-    const {currentUser} = useAuth();
+    const {currentUser} = useAuth(); // get the current user
 
     // all projects from db
     const [projects, setProjects] = useState([]);
+
     // displayed projects
     const [displayedProjects, setDisplayedProjects] = useState([]);
 
@@ -23,12 +24,11 @@ export const DBProvider = ({children}) => {
     // project feedback
     const [projFeedback, setProjFeedback] = useState([]);
 
-    // current project
+    // current project data
     const [projState, setProjState] = useState([]);
 
     // current project edit permissions
     const [editPermission, setEditPermission] = useState(false);
-
 
     // get projects by filters
     const getProjects = (orderBy, direction) => {
@@ -41,22 +41,22 @@ export const DBProvider = ({children}) => {
         return () => unsubscribe();
     }
 
-    const UploadProject = async (projId, img, report, form) => {
-        // upload bg image to storage
+    // updates/create project -> adds project to user acc
+    const UploadProject = async (projId, form) => {
+        // global storage reference
         const storageRef = storage.ref();
-        const fileRef = storageRef.child(img.name);
-        await fileRef.put(img);
-
+        // upload bg image to storage
+        const fileRef = storageRef.child(form.img.name);
+        await fileRef.put(form.img);
         // upload pdf report
-        const reportRef = storageRef.child(report.name);
-        await reportRef.put(report);
-
+        const reportRef = storageRef.child(form.report.name);
+        await reportRef.put(form.report);
         // data object to be stored
         let data = {
-            projectName: form.projectName,
-            projectDescription: form.projectDescription,
-            projectProblemDescription: form.projectProblemDescription,
-            projectTheoryDescription: form.projectTheoryDescription,
+            projectName: form.title,
+            projectDescription: form.description,
+            projectProblemDescription: form.problemDescription,
+            projectTheoryDescription: form.theoryDescription,
             projectImageURL: await fileRef.getDownloadURL(),
             projectReportURL: await reportRef.getDownloadURL(),
             createdAt: new Date(),
@@ -64,28 +64,26 @@ export const DBProvider = ({children}) => {
             userId: currentUser.uid,
             rating: 5,
         }
-
-        const document = db.collection('ProjectForm')
+        const [document] = await Promise.all([db.collection('ProjectForm')
             .doc(projId)
             .set({
                 ...data,
                 projectId: projId,
             }).then(() => {
-                alert('someone implement a cool pop up alert ' +
-                    'now close the alert and and look at the available projects!')
+                alert('The project was successfully uploaded')
                 AddUserProject(projId, form)
             }).catch(error => {
                 alert(error.message)
-            })
+            })])
         return document;
     }
 
-    // the form of adding new project
-    const SubmitNewProjectForm = async (img, report, formState) => {
+    // submit new project with image, pdf report, inputs state
+    const SubmitNewProjectForm = async (formState) => {
         // create a local document
         const document = db.collection('ProjectForm').doc()
         const documentId = document.id
-        await UploadProject(documentId, img, report, formState)
+        await UploadProject(documentId, formState)
     }
 
     // deleting the project by id
@@ -101,32 +99,34 @@ export const DBProvider = ({children}) => {
         return () => unsubscribe;
     }
 
-    // updates the project
-    const UpdateProjectForm = async (projId, img, report, form) => {
-        await UploadProject(projId, img, report, form)
+    // updates the project in db
+    const UpdateProjectForm = async (projId, form) => {
+        await UploadProject(projId, form)
     }
 
     // updates userProjects collection, when the new project was summited
+    // populates db -> updates *** userProjectsData ***
     const AddUserProject = async (projId, proj) => {
         // new doc with the user id in this collection
         const userDocument = db.collection('UsersProjects').doc(currentUser.uid)
-        const response = userDocument.collection('UserProjects')
+        const [response] = await Promise.all([userDocument.collection('UserProjects')
             .doc(projId)
             .set({
-                ProjectName: proj.projectName,
+                ProjectName: proj.title,
                 id: projId,
             })
             .then(() => {
-                alert("Project added to user acc")
+                alert("Project was added to user account!")
                 // update user projects state
                 getUserProjects()
             }).catch(error => {
                 alert(error.message)
-            })
-        return response
+            })]);
+        return response;
     }
 
     // get proj details + feedbacks details by id ( updates the state of the projectPage )
+    // updates -> *** projState && projFeedback ***
     const getProjectById = async (projId) => {
         const unsubscribe = await db.collection('ProjectForm')
             .doc(projId).get()
@@ -145,9 +145,9 @@ export const DBProvider = ({children}) => {
         return () => unsubscribe;
     }
 
-    // send feedback for a project
-    const sendFeedback = (feedback, rating) => {
-        const unsubscribe = db.collection('ProjectForm')
+    // send feedback for a project -> populate db -> update current project page
+    const sendFeedback = async (feedback, rating) => {
+        const unsubscribe = await db.collection('ProjectForm')
             .doc(projState.projectId)
             .collection('Feedbacks')
             .doc(currentUser.uid)
@@ -173,26 +173,26 @@ export const DBProvider = ({children}) => {
                     getProjectById(projState.projectId)
                 })
             })
-        return () => unsubscribe
+        return () => unsubscribe;
     }
 
-    // user projects
-    const getUserProjects = () => {
+    // user projects -> updates -> *** userProjectsData ***
+    const getUserProjects = async () => {
         if (!currentUser) {
             return []
         } else {
             console.log("Getting user Projects Data!")
-            let unsubscribe = db.collection('UsersProjects')
+            let unsubscribe = await db.collection('UsersProjects')
                 .doc(currentUser.uid)
                 .collection('UserProjects')
                 .onSnapshot(function (querySnapshot) {
                     let projIds = []
                     querySnapshot.forEach(function (doc) {
-                        projIds.push(doc.id)
+                        projIds.push(doc.id) // get the projects ids
                     })
-                    getData(projIds)
+                    getData(projIds) // get projects data
                 })
-
+            // ***{updates userProjectsData}*** get data for each project, by projects ids
             const getData = (ids) => {
                 console.log("User has " + ids.length + " projects 🎦")
                 let tempData = []
@@ -207,10 +207,11 @@ export const DBProvider = ({children}) => {
                 })
             }
             // stop listen to changes
-            return () => unsubscribe()
+            return () => unsubscribe;
         }
     }
 
+    // true - false -> updates -> *** editPermission ***
     const isUserProject = async (projId) => {
         const docRef = await db.collection('UsersProjects')
             .doc(currentUser.uid)
