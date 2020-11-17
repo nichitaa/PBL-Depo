@@ -7,8 +7,7 @@ import {ImFacebook2} from "react-icons/im";
 import {FaTelegramPlane} from "react-icons/fa";
 import {AiOutlineMail} from "react-icons/ai";
 
-const Footer = () => {
-    return (
+const Footer = () => (
         <Jumbotron fluid>
             <IconContext.Provider value={{color:"purple", size:"3rem"}}>
                 <div className="d-flex justify-content-around">
@@ -32,6 +31,5 @@ const Footer = () => {
             </IconContext.Provider>
         </Jumbotron>
     )
-}
 
 export default Footer;

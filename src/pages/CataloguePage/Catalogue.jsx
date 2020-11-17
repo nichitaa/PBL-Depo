@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {FiFilter} from "react-icons/fi";
 import {Button, Modal} from "react-bootstrap";
-import {useDB} from "../context/DBContext";
-import {CardGrid, FilterModal} from "../components";
+import {useDB} from "../../context/DBContext";
+import {CardGrid, FilterModal, Loading} from "../../components";
 
 export default function Catalogue() {
     // displayed projects are a copy of all projects, we use it in order to display the search projects
-    const { displayedProjects } = useDB();
+    const {
+        displayedProjects: projects,
+        loading
+    } = useDB();
 
     const [showFilter, setShowFilter] = useState(false);
 
@@ -29,7 +32,12 @@ export default function Catalogue() {
                    onHide={() => setShowFilter(false)}
             > <FilterModal/>
             </Modal>
-            <CardGrid projects={displayedProjects}/>
+            {loading ?
+                <Loading/> :
+                projects ?
+                    <CardGrid projects={projects}/> :
+                    <h1>No Projects Yet</h1>
+            }
         </>
     )
 }

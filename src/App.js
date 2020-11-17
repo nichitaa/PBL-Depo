@@ -15,29 +15,16 @@ export default function App() {
             <ScrollToTop/>
             <div className="container-fluid">
                 <Switch>
-                    <Route exact path={ROUTES.HOME} component={Home}/>
-
-                    <Route exact path={ROUTES.CATALOGUE} component={Catalogue}/>
-
-                    <PrivateRoute exact path={ROUTES.USER} component={User}/>
-
-                    <Route exact path={ROUTES.PROJECT_ID} component={ProjectPage}/>
-
-                    <Route exact path={ROUTES.EDIT_PROJECT} component={EditProject}/>
-
-                    <Route exact path={ROUTES.ABOUT_US} component={AboutUs}/>
-
-                    <Route exact path={ROUTES.SIGN_UP} component={SignUp}/>
-
-                    <Route exact path={ROUTES.LOG_IN} component={LogIn}/>
-
-                    <Route exact path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword}/>
-
-                    <Route render={() => {
-                        return <>
-                            PAGE NOT FOUND 404 :(
-                        </>
-                    }} />
+                    <Route path={ROUTES.EDIT_PROJECT} component={EditProject}/>
+                    <Route path={ROUTES.PROJECT_ID} component={ProjectPage}/>
+                    <Route path={ROUTES.CATALOGUE} component={Catalogue}/>
+                    <Route path={ROUTES.ABOUT_US} component={AboutUs}/>
+                    <Route path={ROUTES.SIGN_UP} component={SignUp}/>
+                    <Route path={ROUTES.LOG_IN} component={LogIn}/>
+                    <Route path={ROUTES.FORGOT_PASSWORD} component={ForgotPassword}/>
+                    <PrivateRoute path={ROUTES.USER} component={User}/>
+                    <Route path={ROUTES.HOME} component={Home}/>
+                    <Route render={() => { return <> PAGE NOT FOUND 404 :( </> }} />
                 </Switch>
                 {/*<Footer/>*/}
             </div>

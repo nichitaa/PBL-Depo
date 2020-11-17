@@ -8,7 +8,7 @@ import Fuse from "fuse.js";
 
 const NavBarContainer = () => {
 
-    const {currentUser, logout} = useAuth();
+    const { currentUser, logout } = useAuth();
 
     // for form modal
     const [showAddForm, setShowAddForm] = useState(false);

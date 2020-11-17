@@ -8,7 +8,7 @@ import Loading from "../LoadingSpiner/Loading";
 
 const EditProjectContainer = ({projId}) => {
 
-    const {UpdateProjectForm} = useDB(); // function to update project
+    const { updateProject } = useDB(); // function to update project
     const history = useHistory(); // for redirecting back to project page when done
 
     const initialState = {
@@ -78,11 +78,11 @@ const EditProjectContainer = ({projId}) => {
     const onFormSubmit = async (e) => {
         // prevent from refreshing the page
         e.preventDefault()
-        if (formState.img !== null && formState.report !== null){
+        if (formState.img && formState.report){
             setLoading(true) // set the loading screen
             // show loading for 4 seconds (until the projects is updated)
             setTimeout(async () => {
-                await UpdateProjectForm(projId, formState) // wait until data is updated
+                await updateProject(projId, formState) // wait until data is updated
                 setLoading(false)
                 history.push(`${ROUTES.CATALOGUE}/${projId}`) // redirect ot project profile page
             }, 0) // by default the updating to our collection will be > 2 seconds so that we

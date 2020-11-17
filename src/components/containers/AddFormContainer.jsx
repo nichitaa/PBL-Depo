@@ -5,7 +5,7 @@ import { Loading } from "../../components";
 
 const AddFormContainer = ({hideModal}) => {
 
-    const {SubmitNewProjectForm} = useDB();
+    const { addNewProject } = useDB();
 
     // local states
     const initialState = {
@@ -61,9 +61,9 @@ const AddFormContainer = ({hideModal}) => {
     const onFormSubmit = async (e) => {
         // prevent from refreshing the page
         e.preventDefault()
-        if (formState.img !== null && formState.report !== null) {
+        if (formState.img && formState.report) {
             setLoading(true)
-            await SubmitNewProjectForm(formState)
+            await addNewProject(formState)
             hideModal()
             setLoading(false)
             clearForm();

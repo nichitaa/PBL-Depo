@@ -6,10 +6,13 @@ import AppContext from "./context";
 // Importing the Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-render(
+const app = (
     <AppContext>
         <App/>
-    </AppContext> , document.getElementById('root'));
+    </AppContext>
+);
+
+render( app, document.getElementById('root'));
 
 
 

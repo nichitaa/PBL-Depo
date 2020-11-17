@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {db, storage} from "../firebase/firebase";
 import {useAuth} from "./AuthContext";
+import * as api from "../hooks/api";
 
 const DBContext = React.createContext();
 
@@ -10,39 +11,37 @@ export const useDB = () => {
 
 export const DBProvider = ({children}) => {
 
-    const {currentUser} = useAuth(); // get the current user
+    const {currentUser: user} = useAuth(); // get the current user
 
     // all projects from db
     const [projects, setProjects] = useState([]);
-
     // displayed projects
     const [displayedProjects, setDisplayedProjects] = useState([]);
-
     // user projects data
     const [userProjectsData, setUserProjectsData] = useState({data: []});
-
     // project feedback
     const [projFeedback, setProjFeedback] = useState([]);
-
     // current project data
     const [projState, setProjState] = useState([]);
-
     // current project edit permissions
     const [editPermission, setEditPermission] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     // get projects by filters
-    const getProjects = (orderBy, direction) => {
-        const unsubscribe = db.collection('ProjectForm')
+    const getProjects = async (orderBy, direction) => {
+        setLoading(true)
+        const unsubscribe = await db.collection('ProjectForm')
             .orderBy(orderBy, direction)
             .onSnapshot((snapshot) => {
                 setProjects(snapshot.docs.map((doc) => doc.data()));
                 setDisplayedProjects(snapshot.docs.map((doc) => doc.data()));
+                setLoading(false)
             });
-        return () => unsubscribe();
+        return () => unsubscribe()
     }
 
     // updates/create project -> adds project to user acc
-    const UploadProject = async (projId, form) => {
+    const uploadProject = async (projId, form) => {
         // global storage reference
         const storageRef = storage.ref();
         // upload bg image to storage
@@ -60,130 +59,66 @@ export const DBProvider = ({children}) => {
             projectImageURL: await fileRef.getDownloadURL(),
             projectReportURL: await reportRef.getDownloadURL(),
             createdAt: new Date(),
-            userEmail: currentUser.email,
-            userId: currentUser.uid,
+            userEmail: user.email,
+            userId: user.uid,
             rating: 5,
         }
-        const [document] = await Promise.all([db.collection('ProjectForm')
-            .doc(projId)
-            .set({
-                ...data,
-                projectId: projId,
-            }).then(() => {
-                alert('The project was successfully uploaded')
-                AddUserProject(projId, form)
-            }).catch(error => {
-                alert(error.message)
-            })])
-        return document;
+
+        return api.upload(projId, data).then(() => {
+            addProjectToUser(projId, form)
+        })
     }
 
     // submit new project with image, pdf report, inputs state
-    const SubmitNewProjectForm = async (formState) => {
+    const addNewProject = async (formState) => {
         // create a local document
         const document = db.collection('ProjectForm').doc()
         const documentId = document.id
-        await UploadProject(documentId, formState)
+        await uploadProject(documentId, formState)
     }
 
     // deleting the project by id
-    const DeleteProject = async (projId) => {
-        const unsubscribe = await db.collection('ProjectForm')
-            .doc(projId).delete().then(() => {
-                db.collection('UsersProjects')
-                    .doc(currentUser.uid).collection('UserProjects')
-                    .doc(projId).delete().then(() => {
-                        alert('Your project has been deleted successfully!')
-                })
-            })
-        return () => unsubscribe;
+    const deleteProject = async (projId) => {
+        return api.deleteProject(projId, user.uid)
+        // return () => unsubscribe;
     }
 
     // updates the project in db
-    const UpdateProjectForm = async (projId, form) => {
-        await UploadProject(projId, form)
+    const updateProject = async (projId, form) => {
+        await uploadProject(projId, form)
     }
 
     // updates userProjects collection, when the new project was summited
     // populates db -> updates *** userProjectsData ***
-    const AddUserProject = async (projId, proj) => {
-        // new doc with the user id in this collection
-        const userDocument = db.collection('UsersProjects').doc(currentUser.uid)
-        const [response] = await Promise.all([userDocument.collection('UserProjects')
-            .doc(projId)
-            .set({
-                ProjectName: proj.title,
-                id: projId,
-            })
-            .then(() => {
-                alert("Project was added to user account!")
-                // update user projects state
-                getUserProjects()
-            }).catch(error => {
-                alert(error.message)
-            })]);
-        return response;
+    const addProjectToUser = async (projId, proj) => {
+        return api.addProjectToUser(projId, user.uid, proj).then(() => getUserProjects())
     }
 
     // get proj details + feedbacks details by id ( updates the state of the projectPage )
     // updates -> *** projState && projFeedback ***
     const getProjectById = async (projId) => {
-        const unsubscribe = await db.collection('ProjectForm')
-            .doc(projId).get()
-            .then(snapshot => {
-                setProjState(prevState => snapshot.data())
-                // grab the projects feedbacks collection
-                db.collection('ProjectForm')
-                    .doc(projId)
-                    .collection('Feedbacks')
-                    .onSnapshot((snapshot) => {
-                        setProjFeedback(snapshot.docs.map((doc) => doc.data()))
-                        console.log("getting project")
-                    })
-            })
-        // console.log("getting project data: ✔")
-        return () => unsubscribe;
+        return api.getProjectById(projId).then(({project, feedback}) => {
+            setProjFeedback(feedback)
+            setProjState(project)
+        })
     }
 
     // send feedback for a project -> populate db -> update current project page
     const sendFeedback = async (feedback, rating) => {
-        const unsubscribe = await db.collection('ProjectForm')
-            .doc(projState.projectId)
-            .collection('Feedbacks')
-            .doc(currentUser.uid)
-            // update feedbacks collection
-            .set({
-                message: feedback,
-                email: currentUser.email,
-                rating: rating,
-            }).then(() => {
-                // update project rating
-                let currentProjectRating = projState.rating
-                if (isNaN(currentProjectRating)) {
-                    currentProjectRating = 5
-                }
-                let updatedRating = (currentProjectRating + rating) / 2
-                db.collection('ProjectForm')
-                    .doc(projState.projectId)
-                    .update({
-                        "rating": updatedRating
-                    }).then(() => {
-                    alert("Rating was updated successfully!")
-                    // update current project state, to rerender the project page with new rating
-                    getProjectById(projState.projectId)
-                })
-            })
-        return () => unsubscribe;
+        return api.sendFeedback(projState, feedback, rating, user).then(({project, feedback}) => {
+            setProjFeedback(feedback)
+            setProjState(project)
+        })
     }
 
     // user projects -> updates -> *** userProjectsData ***
     const getUserProjects = async () => {
-        if (!currentUser) {
+        if (!user) {
             return []
         } else {
             console.log("Getting user Projects Data!")
             let unsubscribe = await db.collection('UsersProjects')
-                .doc(currentUser.uid)
+                .doc(user.uid)
                 .collection('UserProjects')
                 .onSnapshot(function (querySnapshot) {
                     let projIds = []
@@ -213,19 +148,10 @@ export const DBProvider = ({children}) => {
 
     // true - false -> updates -> *** editPermission ***
     const isUserProject = async (projId) => {
-        const docRef = await db.collection('UsersProjects')
-            .doc(currentUser.uid)
-            .collection('UserProjects')
-            .doc(projId)
-        const doc = await docRef.get()
-
-        if (doc.exists) {
-            setEditPermission(prev => true)
-            return true;
-        } else {
-            setEditPermission(prev => false)
-            return false;
-        }
+        return api.isUserProject(projId, user).then(response => {
+            setEditPermission(response)
+            return response
+        })
     }
 
     // default sort for card group, grab the newest projects first (run once)
@@ -242,9 +168,11 @@ export const DBProvider = ({children}) => {
         setUserProjectsData({data: []})
         // get the new projects data
         getUserProjects()
-    }, [currentUser])
+    }, [user])
 
     const value = {
+        loading,
+
         projects, // all projects state
         setProjects, // update state for fuse live search
         getProjects, // function to get the projects depending on filters
@@ -260,10 +188,10 @@ export const DBProvider = ({children}) => {
         projState,
         projFeedback,
         editPermission,
-        UpdateProjectForm,
-        DeleteProject,
+        updateProject,
+        deleteProject,
 
-        SubmitNewProjectForm,
+        addNewProject,
         getProjectById,
         sendFeedback,
     }

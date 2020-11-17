@@ -12,10 +12,6 @@ export { default as  EditForm } from './ProjectForm/EditForm';
 export { default as  NavBarContainer } from './containers/NavBarContainer';
 export { default as  NavBar } from './NavBar/NavBar';
 
-// *********** Project Feedback ******************
-export { default as FeedbackForm } from './ProjectFeedback/FeedbackForm';
-export { default as ProjectFeedbacks } from './ProjectFeedback/ProjectFeedbacks';
-
 // *********** Loading Spiner ********************
 export { default as Loading } from './LoadingSpiner/Loading';
 

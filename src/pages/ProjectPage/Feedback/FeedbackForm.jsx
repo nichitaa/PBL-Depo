@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, ButtonGroup, ButtonToolbar, Form, FormControl, InputGroup} from "react-bootstrap";
-import {useAuth} from "../../context/AuthContext";
-import {useDB} from "../../context/DBContext";
+import {useAuth} from "../../../context/AuthContext";
+import {useDB} from "../../../context/DBContext";
 
 const FeedbackForm = () => {
 
