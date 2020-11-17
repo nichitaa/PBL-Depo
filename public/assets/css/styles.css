@@ -1,0 +1,196 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    /*font-size: 1rem;*/
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+}
+
+@media (min-width: 100px) and (max-width: 767px) {
+    body {
+        background-image: url("../../assets/img/pbl-depo-assets_small_device-08.png");
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        background-image: url("../../assets/img/pbl-depo-assets_large_device-05.png");
+    }
+}
+
+#depo {
+    font-size: 50px;
+}
+
+#recent_projects {
+    color: white;
+    width: 100%;
+    height: 135px;
+    margin-top: 294px;
+    font-family: 'Montserrat Black';
+    font-size: 50px;
+}
+
+#hr {
+    border-top: 5px solid #113b3a;
+    border-radius: 5px;
+    width: 22%;
+    margin-bottom: 132px;
+}
+
+#team-grid {
+    background-color: transparent;
+}
+
+#one-card {
+    height: 352px;
+}
+
+#project_card {
+    border-radius: 10px;
+    background-image: url(../img/2.jpg);
+}
+
+#read-more {
+    border-color: transparent;
+    width: 100%;
+    height: 25%;
+    font-family: "Helvetica", serif;
+    border-bottom: 10px;
+    border-top: 5px;
+    background: linear-gradient(0deg, rgb(17,59,58) 0%, rgba(0,212,255,0) 100%);
+    display: inline-block;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#navbar {
+    background-color: transparent;
+    width: 100%;
+    height: 7.8%;
+    font-family: "Helvetica", serif;
+}
+
+#sign_up {
+    background-color: #113B3A !important;
+}
+
+#sign_up:hover {
+    filter: brightness(150%);
+    background-color: #01504d !important;
+}
+
+.team-grid {
+    color: #313437;
+    background-color: #fff;
+}
+
+.team-grid p {
+    color: #7d8285;
+}
+
+.team-grid h2 {
+    font-weight: bold;
+    margin-bottom: 40px;
+    padding-top: 40px;
+    color: inherit;
+}
+
+@media (max-width:767px) {
+    .team-grid h2 {
+        margin-bottom: 25px;
+        padding-top: 25px;
+        font-size: 24px;
+    }
+}
+
+.team-grid .intro {
+    font-size: 16px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.team-grid .intro p {
+    margin-bottom: 0;
+}
+
+.team-grid .people {
+    padding: 50px 0;
+}
+
+.team-grid .item {
+    margin-bottom: 30px;
+}
+
+.team-grid .item .box {
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-grid .item .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(31,148,255,0.75);
+    transition: opacity 0.15s ease-in;
+    opacity: 0;
+    padding-top: 80px;
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+}
+
+.team-grid .item:hover .cover {
+    opacity: 1;
+}
+
+.team-grid .item .name {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.team-grid .item .title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #bbd8fb;
+    letter-spacing: 2px;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+.team-grid .social {
+    font-size: 18px;
+}
+
+.team-grid .social a {
+    color: inherit;
+    margin: 0 10px;
+    display: inline-block;
+    opacity: 0.7;
+}
+
+.team-grid .social a:hover {
+    opacity: 1;
+}
+

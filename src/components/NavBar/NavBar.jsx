@@ -7,7 +7,7 @@ import * as ROUTES from "../../constants/routes";
 
 const PBLNavBar = (props) => (
     <>
-        <Navbar bg="light" expand="xl">
+        <Navbar expand="xl" id={"navbar"}>
             <Navbar.Brand as={NavLink}
                           to={ROUTES.HOME}>
                 PBL DEPO
@@ -67,14 +67,14 @@ const PBLNavBar = (props) => (
                                 <Nav className="justify-content-end">
                                     <Nav.Item>
                                         <Nav.Link as={NavLink} to={ROUTES.SIGN_UP}>
-                                            <Button variant="outline-primary">
+                                            <Button variant="outline-secondary">
                                                 Sign Up
                                             </Button>
                                         </Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link as={NavLink} to={ROUTES.LOG_IN}>
-                                            <Button variant="outline-warning">
+                                            <Button variant="outline-danger">
                                                 LogIn
                                             </Button>
                                         </Nav.Link>
@@ -95,7 +95,7 @@ const PBLNavBar = (props) => (
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link>
-                                            <Button variant="outline-warning"
+                                            <Button variant="outline-info"
                                                     onClick={props.handleLogout}>
                                                 Log Out
                                             </Button>
