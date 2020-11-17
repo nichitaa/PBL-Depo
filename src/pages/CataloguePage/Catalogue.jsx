@@ -1,43 +1,57 @@
-import React, { useState } from 'react';
-import {FiFilter} from "react-icons/fi";
-import {Button, Modal} from "react-bootstrap";
+import React  from 'react';
 import {useDB} from "../../context/DBContext";
-import {CardGrid, FilterModal, Loading} from "../../components";
+import {CardGrid, Loading} from "../../components";
+import {Container, Col, Row} from "react-bootstrap";
+import Search from "../../components/Search/Search";
+import Filter from "../../components/Filter/Filter";
 
 export default function Catalogue() {
     // displayed projects are a copy of all projects, we use it in order to display the search projects
     const {
         displayedProjects: projects,
-        loading
+        loading,
     } = useDB();
-
-    const [showFilter, setShowFilter] = useState(false);
 
     return (
         <>
-            <div className="d-flex">
-                <div className="p-2 w-100 ml-5 text-center"><h1>PBL Catalogue</h1></div>
-                <div className="p-2 flex-shrink-1 mr-5">
-                    <Button variant="light"
-                            onClick={() => setShowFilter(!showFilter)}
+            <Container>
+                <Row>
+                    <Col/>
+                    <Col className="d-flex justify-content-center"
+                         data-aos="fade-up"
+                         data-aos-duration="500"
+                         data-aos-delay="300"
                     >
-                        <FiFilter color="purple" size="2rem"/>
-                        <br/>
-                        <p>Filter</p>
-                    </Button>
-                </div>
+                        <h2 style={{fontFamily: "Montserrat", fontSize: "40px", marginBottom: "20px"}}>
+                            Catalogue
+                        </h2>
+                    </Col>
+                    <Col>
+                        <Row>
+                            <Col xs={9} data-aos="fade-up"
+                                 data-aos-duration="500"
+                                 data-aos-delay="400">
+                                <Search/>
+                            </Col>
+                            <Col data-aos="fade-up"
+                                 data-aos-duration="500"
+                                 data-aos-delay="500">
+                                <Filter/>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </Container>
+            <div data-aos="fade-up"
+                 data-aos-duration="500"
+                 data-aos-delay="600">
+                {loading ?
+                    <Loading/> :
+                    projects ?
+                        <CardGrid projects={projects} /> :
+                        <h1>No Projects Yet</h1>
+                }
             </div>
-
-            <Modal show={showFilter}
-                   onHide={() => setShowFilter(false)}
-            > <FilterModal/>
-            </Modal>
-            {loading ?
-                <Loading/> :
-                projects ?
-                    <CardGrid projects={projects}/> :
-                    <h1>No Projects Yet</h1>
-            }
         </>
     )
 }

@@ -4,16 +4,18 @@ import {Navbar, Nav, NavDropdown, Modal, Button, Form, InputGroup, FormControl, 
 import {BsSearch} from "react-icons/bs";
 import AddFormContainer from "../containers/AddFormContainer";
 import * as ROUTES from "../../constants/routes";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const PBLNavBar = (props) => (
     <>
-        <Navbar expand="xl" id={"navbar"}>
+        <Navbar expand="xl">
             <Navbar.Brand as={NavLink}
                           to={ROUTES.HOME}>
                 PBL DEPO
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
+            <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link as={NavLink}
                               to={ROUTES.CATALOGUE}
@@ -37,29 +39,10 @@ const PBLNavBar = (props) => (
                         <NavDropdown.Item>Mentors</NavDropdown.Item>
                         <NavDropdown.Divider/>
                         <NavDropdown.Item onClick={props.handleShowFormModal}>
-                            Add new Project Form
+                            Upload New Project
                         </NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
-                <Form>
-                    <Col xs="auto">
-                        <Form.Label htmlFor="inlineFormInputGroup" srOnly>
-                            Search Projects
-                        </Form.Label>
-                        <InputGroup className="mb-2">
-                            <InputGroup.Prepend>
-                                <InputGroup.Text>
-                                    <BsSearch/>
-                                </InputGroup.Text>
-                            </InputGroup.Prepend>
-                            <FormControl id="inlineFormInputGroup"
-                                         placeholder="Search Projects"
-                                         value={props.search}
-                                         onChange={props.changeSearch}
-                            />
-                        </InputGroup>
-                    </Col>
-                </Form>
 
                 {
                     !props.currentUser ? (
@@ -67,15 +50,17 @@ const PBLNavBar = (props) => (
                                 <Nav className="justify-content-end">
                                     <Nav.Item>
                                         <Nav.Link as={NavLink} to={ROUTES.SIGN_UP}>
-                                            <Button variant="outline-secondary">
+                                            <Button variant="outline-danger"
+                                                    style={{borderRadius: "50px"}}>
                                                 Sign Up
                                             </Button>
                                         </Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link as={NavLink} to={ROUTES.LOG_IN}>
-                                            <Button variant="outline-danger">
-                                                LogIn
+                                            <Button variant="outline-success"
+                                                    style={{borderRadius: "50px"}}>
+                                                Log In
                                             </Button>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -88,16 +73,18 @@ const PBLNavBar = (props) => (
                                     <Nav.Item>
                                         <Nav.Link as={NavLink}
                                                   to={ROUTES.USER}>
-                                            <Button variant="outline-dark">
-                                                Me: {props.currentUser.email}
+                                            <Button variant="outline-info"
+                                                    style={{borderRadius: "50px"}}>
+                                                {props.currentUser.email}
                                             </Button>
                                         </Nav.Link>
                                     </Nav.Item>
                                     <Nav.Item>
                                         <Nav.Link>
-                                            <Button variant="outline-info"
+                                            <Button variant="outline-danger"
+                                                    style={{borderRadius: "50px"}}
                                                     onClick={props.handleLogout}>
-                                                Log Out
+                                                Sign Out
                                             </Button>
                                         </Nav.Link>
                                     </Nav.Item>
@@ -118,4 +105,5 @@ const PBLNavBar = (props) => (
         </Modal>
     </>
 )
+
 export default PBLNavBar;

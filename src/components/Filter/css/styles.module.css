@@ -1,0 +1,16 @@
+.filter_button {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    transition: all .5s ease-in-out;
+    margin-top: 5px;
+}
+.filter_button:focus {
+    border: none;
+    outline: none;
+}
+.filter_button:hover {
+    /*  Making button bigger on hover  */
+    transform: scale(1.2);
+    outline: none;
+}

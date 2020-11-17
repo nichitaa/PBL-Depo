@@ -17,13 +17,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9baec77-2667-4bb5-8fdf-45df7eebcce8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/assets/css/footer.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Filter/Filter.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Filter/css/styles.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Search/Search.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Search/css/styles.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/bs-init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/bs-init.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer/Footer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/containers/NavBarContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/containers/NavBarContainer.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CataloguePage/Catalogue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CataloguePage/Catalogue.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/HomePage/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/HomePage/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,10 +54,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/img/my" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -61,18 +72,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public\assets\img\my" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\containers" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\LogIn" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Filter\css" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Search\css" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\ProjectPage\Feedback" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\AboutPage" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\ProjectPage" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\AuthPages" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\UserPage" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -100,7 +111,7 @@
       <workItem from="1605509375209" duration="18133000" />
       <workItem from="1605552837586" duration="53000" />
       <workItem from="1605552962412" duration="5945000" />
-      <workItem from="1605596390193" duration="10885000" />
+      <workItem from="1605596390193" duration="31125000" />
     </task>
     <servers />
   </component>
@@ -119,6 +130,9 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="630" y="291" key="#ESLint" timestamp="1604848836614">
       <screen x="0" y="0" width="1536" height="824" />
@@ -132,10 +146,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1604858711885" />
-    <state x="521" y="201" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604837653223">
+    <state x="521" y="201" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605610126678">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="521" y="201" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1604837653223" />
+    <state x="521" y="201" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1605610126678" />
     <state x="499" y="158" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605207979018">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
