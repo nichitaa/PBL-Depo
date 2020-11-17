@@ -6,7 +6,7 @@ import * as ROUTES from './constants/routes';
 // pages
 import {Home, Catalogue, User, SignUp, LogIn, ForgotPassword, AboutUs, ProjectPage, EditProject} from "./pages";
 // my custom components
-import { NavBarContainer } from "./components";
+import { NavBarContainer, Footer } from "./components";
 
 export default function App() {
     return (
@@ -26,7 +26,7 @@ export default function App() {
                     <Route path={ROUTES.HOME} component={Home}/>
                     <Route render={() => { return <> PAGE NOT FOUND 404 :( </> }} />
                 </Switch>
-                {/*<Footer/>*/}
+                <Footer/>
             </div>
         </Router>
     );

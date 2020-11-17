@@ -60,7 +60,7 @@ export default function Home() {
                             {
                                 projects.map(project => {
                                     return(
-                                        <div className="col-md-4 col-lg-3 item">
+                                        <div className="col-md-4 col-lg-3 item" key={project}>
                                             <div
                                                 className="d-flex d-lg-flex align-items-end justify-content-lg-center align-items-lg-end box"
                                                 data-aos="zoom-out" data-aos-duration="800"
@@ -77,37 +77,10 @@ export default function Home() {
                                     )
                                 })
                             }
-                            {/*<div className="col-md-4 col-lg-3 item">*/}
-                            {/*    <div*/}
-                            {/*        className="d-flex d-lg-flex align-items-end justify-content-lg-center align-items-lg-end box"*/}
-                            {/*        data-aos="zoom-out" data-aos-duration="800" data-aos-delay="900" id="project_card"*/}
-                            {/*        style={{backgroundImage:"url(assets/img/2.jpg)"}}>*/}
-                            {/*        <button*/}
-                            {/*            className="btn btn-primary d-lg-flex justify-content-lg-center align-items-lg-center"*/}
-                            {/*            id="btn" type="button"*/}
-                            {/*            style={{width: "100%",height: "25%",fontFamily: 'HelveticaNowText Regular'}}>*/}
-                            {/*            Read more*/}
-                            {/*        </button>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-md-4 col-lg-3 item">*/}
-                            {/*    <div*/}
-                            {/*        className="d-flex d-lg-flex align-items-end justify-content-lg-center align-items-lg-end box"*/}
-                            {/*        data-aos="zoom-out" data-aos-duration="800" data-aos-delay="900" id="project_card"*/}
-                            {/*        style={{backgroundImage:"url(assets/img/2.jpg)"}}>*/}
-                            {/*        <button*/}
-                            {/*            className="btn btn-primary d-lg-flex justify-content-lg-center align-items-lg-center"*/}
-                            {/*            id="btn" type="button"*/}
-                            {/*            style={{width: "100%",height: "25%",fontFamily: 'HelveticaNowText Regular'}}>*/}
-                            {/*            Read more*/}
-                            {/*        </button>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
     )
 }

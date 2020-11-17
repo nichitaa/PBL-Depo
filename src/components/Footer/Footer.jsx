@@ -1,35 +1,37 @@
 import React from 'react';
-import {Jumbotron} from "react-bootstrap";
-import { IconContext} from "react-icons";
-import {ImGithub} from "react-icons/im";
-import {FaLinkedin} from "react-icons/fa";
-import {ImFacebook2} from "react-icons/im";
-import {FaTelegramPlane} from "react-icons/fa";
-import {AiOutlineMail} from "react-icons/ai";
 
 const Footer = () => (
-        <Jumbotron fluid>
-            <IconContext.Provider value={{color:"purple", size:"3rem"}}>
-                <div className="d-flex justify-content-around">
-                    <a href="https://github.com/nikitaal">
-                        <ImGithub/>
-                    </a>
-                    <a href="https://www.linkedin.com/">
-                        <FaLinkedin/>
-                    </a>
-                    <a href="https://www.facebook.com/">
-                        <ImFacebook2/>
-                    </a>
-                    <a href="https://web.telegram.org/#/login">
-                        <FaTelegramPlane/>
-                    </a>
-                    <a href="https://outlook.live.com/owa/">
-                        <AiOutlineMail/>
-                    </a>
-
+    <div className="footer-dark">
+        <footer>
+            <div className="container">
+                <div className="row d-md-flex justify-content-md-center">
+                    <div className="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">How to upload a project</a></li>
+                            <li><a href="#">GitHub Repository</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </IconContext.Provider>
-        </Jumbotron>
-    )
+                <div className="col d-md-flex justify-content-md-center align-items-md-center item social">
+                    <a>
+                        <i className="icon ion-social-facebook"/>
+                    </a>
+                    <a>
+                        <i className="icon ion-social-twitter"/>
+                    </a>
+                    <a>
+                        <i className="icon ion-social-snapchat"/>
+                    </a>
+                    <a>
+                        <i className="icon ion-social-instagram"/>
+                    </a>
+                </div>
+                <p className="copyright">PBL Depo © 2020</p>
+            </div>
+        </footer>
+    </div>
+)
 
 export default Footer;
