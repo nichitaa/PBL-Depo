@@ -17,8 +17,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9baec77-2667-4bb5-8fdf-45df7eebcce8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Search/css/styles.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Search/css/styles.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/DBContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/DBContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/api.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

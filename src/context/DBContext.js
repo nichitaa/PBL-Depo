@@ -40,7 +40,7 @@ export const DBProvider = ({children}) => {
         return () => unsubscribe()
     }
 
-    // updates/create project -> adds project to user acc
+    // -> new request to updates/create project
     const uploadProject = async (projId, form) => {
         // global storage reference
         const storageRef = storage.ref();
@@ -64,9 +64,7 @@ export const DBProvider = ({children}) => {
             rating: 5,
         }
 
-        return api.upload(projId, data).then(() => {
-            addProjectToUser(projId, form)
-        })
+        return api.newRequest(projId, data)
     }
 
     // submit new project with image, pdf report, inputs state
@@ -80,18 +78,11 @@ export const DBProvider = ({children}) => {
     // deleting the project by id
     const deleteProject = async (projId) => {
         return api.deleteProject(projId, user.uid)
-        // return () => unsubscribe;
     }
 
     // updates the project in db
     const updateProject = async (projId, form) => {
         await uploadProject(projId, form)
-    }
-
-    // updates userProjects collection, when the new project was summited
-    // populates db -> updates *** userProjectsData ***
-    const addProjectToUser = async (projId, proj) => {
-        return api.addProjectToUser(projId, user.uid, proj).then(() => getUserProjects())
     }
 
     // get proj details + feedbacks details by id ( updates the state of the projectPage )
@@ -157,8 +148,9 @@ export const DBProvider = ({children}) => {
     // default sort for card group, grab the newest projects first (run once)
     useEffect(() => {
         console.log("First useEffect, getting first time data 😆")
-        getProjects("createdAt", "desc")
-        getUserProjects()
+        getProjects("createdAt", "desc") // get all projects (listener)
+        getUserProjects() // if auth -> get users projects
+        api.newRequestsListeners() // if admin changes some projects from 'request' collection (listener)
     }, [])
 
     // when user changes
