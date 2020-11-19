@@ -46,7 +46,7 @@ export async function addProjectToUser(projId, userId, proj) {
     return response;
 }
 
-export async function getProjectById(projId) {
+export async function getProjectById(projId)    {
     return await db.collection('ProjectForm')
         .doc(projId).get()
         .then(async (snapshot) => {

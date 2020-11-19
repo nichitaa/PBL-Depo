@@ -9,8 +9,8 @@ let flag = true;
 export default function User() {
 
     const [loading, setLoading] = useState(false)
-    const { currentUser: user } = useAuth();
-    const { userProjects: projects } = useDB()
+    const {currentUser: user} = useAuth();
+    const {userProjects: projects} = useDB()
 
     useEffect(() => {
         if (flag === true) {
@@ -23,16 +23,23 @@ export default function User() {
     }, [])
 
     return (
-        <div>
-            <h2><strong>My Email: </strong>{user.email}</h2>
-            <h2>My PBL Projects:</h2>
+        <>
             {
                 loading ?
                     <Loading/> :
                     projects ?
-                        <CardGrid projects={projects}/> :
-                        <p>U dont have any projects yet</p>
+                        <>
+                            <h2><strong>My Email: </strong>{user.email}</h2>
+                            <h2>My PBL Projects:</h2>
+                            <CardGrid projects={projects}/>
+                        </> :
+                        <>
+                            <h2><strong>My Email: </strong>{user.email}</h2>
+                            <h2>My PBL Projects:</h2>
+                            <p>U dont have any projects yet</p>
+                        </>
             }
-        </div>
+        </>
+
     );
 }

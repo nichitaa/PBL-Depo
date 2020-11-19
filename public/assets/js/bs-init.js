@@ -1,3 +1,3 @@
-$(document).ready(function(){
-	AOS.init({ enable: 'mobile' });
+$(document).ready(function () {
+    AOS.init({enable: 'mobile'});
 });

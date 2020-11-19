@@ -17,11 +17,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9baec77-2667-4bb5-8fdf-45df7eebcce8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/debug.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Filter/Filter.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Filter/css/styles.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Search/Search.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Search/css/styles.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LoadingSpiner/css/style.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ParticlesBackground/Particles.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/ParticlesBackground/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" beforeDir="false" afterPath="$PROJECT_DIR$/.firebase/hosting.YnVpbGQ.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
@@ -29,10 +27,11 @@
       <change beforePath="$PROJECT_DIR$/public/assets/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/js/bs-init.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/bs-init.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavBar/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/containers/NavBarContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/containers/NavBarContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/CataloguePage/Catalogue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CataloguePage/Catalogue.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/HomePage/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/HomePage/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LoadingSpiner/Loading.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoadingSpiner/Loading.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UserPage/User.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/UserPage/User.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +57,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/assets/js" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,19 +70,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public\assets\img\my" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\containers" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\LogIn" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Filter\css" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Search\css" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\ProjectPage\Feedback" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\AboutPage" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\ProjectPage" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public\assets\js" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public\assets\img\my" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\containers" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -111,7 +110,11 @@
       <workItem from="1605509375209" duration="18133000" />
       <workItem from="1605552837586" duration="53000" />
       <workItem from="1605552962412" duration="5945000" />
-      <workItem from="1605596390193" duration="31125000" />
+      <workItem from="1605596390193" duration="32127000" />
+      <workItem from="1605702417728" duration="625000" />
+      <workItem from="1605706771702" duration="657000" />
+      <workItem from="1605725252628" duration="4172000" />
+      <workItem from="1605773108227" duration="5752000" />
     </task>
     <servers />
   </component>
@@ -182,9 +185,13 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="677" height="446" key="SwitcherDM/0.0.1536.824@0.0.1536.824" timestamp="1605203196962" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605517650928">
+    <state x="425" y="187" key="run.anything.popup" timestamp="1605726110457">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1605517650928" />
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1605726110457" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605779379973">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1605779379973" />
   </component>
 </project>
