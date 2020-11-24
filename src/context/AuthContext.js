@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { auth } from '../firebase/firebase';
+import * as api from "../hooks/api";
 
 
 const AuthContext = React.createContext();
@@ -14,11 +15,12 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const signup = (email, password) => {
-        return auth.createUserWithEmailAndPassword(email, password);
+        return auth.createUserWithEmailAndPassword(email, password)
+            .then(api.updateStats("Users"));
     }
 
     const login = (email, password) => {
-        return auth.signInWithEmailAndPassword(email, password)
+        return auth.signInWithEmailAndPassword(email, password);
     }
 
     const logout = () => {

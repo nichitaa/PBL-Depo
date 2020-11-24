@@ -1,4 +1,5 @@
 import React from 'react';
+import LiveStats from "../LiveStats/LiveStats";
 
 const Footer = () => (
     <div className="footer-dark">
@@ -11,6 +12,7 @@ const Footer = () => (
                             <li><a href="#">Team</a></li>
                             <li><a href="#">How to upload a project</a></li>
                             <li><a href="#">GitHub Repository</a></li>
+                            <LiveStats/>
                         </ul>
                     </div>
                 </div>

@@ -19,5 +19,7 @@ export { default as Loading } from './LoadingSpiner/Loading';
 export { default as Footer } from './Footer/Footer';
 
 // *********** BG ********************************
-export { default as Particles } from './ParticlesBackground/Particles'
+export { default as Particles } from './ParticlesBackground/Particles';
+
+export { default as LiveStats } from './LiveStats/LiveStats';
 

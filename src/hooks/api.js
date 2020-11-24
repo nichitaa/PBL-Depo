@@ -38,6 +38,7 @@ export async function upload(projId, data) {
             projectId: projId,
         }).then(() => {
             alert('A new project was just uploaded! Go check it out')
+            updateStats('Projects')
         }).catch(error => {
             alert(error.message)
         })
@@ -135,4 +136,36 @@ export async function isUserProject(projId, user) {
     const doc = await docRef.get() // get the doc
     // if doc exists -> true
     return !!doc.exists;
+}
+
+export async function updateStats(doc) {
+    const docref = db.collection('Stats')
+        .doc(doc)
+    docref.get().then(doc => {
+        const temp = doc.data();
+        docref.update({
+            "Total": temp.Total + 1,
+        })
+    })
+}
+
+export async function getStats(setStats) {
+    return db.collection('Stats')
+        .onSnapshot((snapshot) => {
+            snapshot.docs.map((doc) => {
+                if (doc.id === "Projects") {
+                    setStats(prev => ({
+                            ...prev,
+                            projects: doc.data().Total
+                        })
+                    )
+                } else {
+                    setStats(prev => ({
+                            ...prev,
+                            users: doc.data().Total
+                        })
+                    )
+                }
+            })
+        });
 }

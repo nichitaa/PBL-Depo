@@ -27,17 +27,22 @@ export const DBProvider = ({children}) => {
     const [editPermission, setEditPermission] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    // users && projects live stats
+    const [stats, setStats] = useState({
+        users: 0,
+        projects: 0,
+    })
+
     // get projects by filters
     const getProjects = async (orderBy, direction) => {
         setLoading(true)
-        const unsubscribe = await db.collection('ProjectForm')
+        return db.collection('ProjectForm')
             .orderBy(orderBy, direction)
             .onSnapshot((snapshot) => {
                 setProjects(snapshot.docs.map((doc) => doc.data()));
                 setDisplayedProjects(snapshot.docs.map((doc) => doc.data()));
                 setLoading(false)
             });
-        return () => unsubscribe()
     }
 
     // -> new request to updates/create project
@@ -108,16 +113,6 @@ export const DBProvider = ({children}) => {
             return []
         } else {
             console.log("Getting user Projects Data!")
-            let unsubscribe = await db.collection('UsersProjects')
-                .doc(user.uid)
-                .collection('UserProjects')
-                .onSnapshot(function (querySnapshot) {
-                    let projIds = []
-                    querySnapshot.forEach(function (doc) {
-                        projIds.push(doc.id) // get the projects ids
-                    })
-                    getData(projIds) // get projects data
-                })
             // ***{updates userProjectsData}*** get data for each project, by projects ids
             const getData = (ids) => {
                 console.log("User has " + ids.length + " projects 🎦")
@@ -132,8 +127,16 @@ export const DBProvider = ({children}) => {
                         })
                 })
             }
-            // stop listen to changes
-            return () => unsubscribe;
+            return db.collection('UsersProjects')
+                .doc(user.uid)
+                .collection('UserProjects')
+                .onSnapshot(function (querySnapshot) {
+                    let projIds = []
+                    querySnapshot.forEach(function (doc) {
+                        projIds.push(doc.id) // get the projects ids
+                    })
+                    getData(projIds) // get projects data
+                })
         }
     }
 
@@ -148,9 +151,10 @@ export const DBProvider = ({children}) => {
     // default sort for card group, grab the newest projects first (run once)
     useEffect(() => {
         console.log("First useEffect, getting first time data 😆")
-        getProjects("createdAt", "desc") // get all projects (listener)
-        getUserProjects() // if auth -> get users projects
-        api.newRequestsListeners() // if admin changes some projects from 'request' collection (listener)
+        getProjects("createdAt", "desc") // -> get all projects (listener)
+        getUserProjects() // if auth then get users projects
+        api.newRequestsListeners() //  -> if admin changes some projects from 'request' collection (listener)
+        api.getStats(setStats); // -> listener to app stats
     }, [])
 
     // when user changes
@@ -164,6 +168,7 @@ export const DBProvider = ({children}) => {
 
     const value = {
         loading,
+        stats,
 
         projects, // all projects state
         setProjects, // update state for fuse live search
