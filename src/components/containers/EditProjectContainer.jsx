@@ -2,14 +2,13 @@ import React, {useState, useEffect} from 'react';
 import {useDB} from "../../context/DBContext";
 import EditForm from "../ProjectForm/EditForm";
 import {db} from "../../firebase/firebase";
-import {useHistory} from 'react-router-dom';
 import * as ROUTES from "../../constants/routes";
 import Loading from "../LoadingSpiner/Loading";
+import history from "../../constants/history";
 
 const EditProjectContainer = ({projId}) => {
 
-    const { updateProject } = useDB(); // function to update project
-    const history = useHistory(); // for redirecting back to project page when done
+    const {updateProject} = useDB(); // function to update project
 
     const initialState = {
         title: '',
@@ -58,7 +57,7 @@ const EditProjectContainer = ({projId}) => {
             console.log("IMAGE: ", selectedImage);
         } else {
             alert('Please upload a jpeg or png image ');
-            setFormState(state => ( { ...state, img: null} ));
+            setFormState(state => ({...state, img: null}));
         }
     }
     // on pdf upload
@@ -66,25 +65,26 @@ const EditProjectContainer = ({projId}) => {
         let pdf = e.target.files[0]; // get the first file
         if (pdf && pdf.type === 'application/pdf') {
             // setReport(pdf);
-            setFormState(state => ({ ...state, report: pdf, })) // update state with new pdf
+            setFormState(state => ({...state, report: pdf,})) // update state with new pdf
             console.log("PDF: ", pdf);
         } else {
             alert("Please upload the report in pdf format!")
             // setReport(null);
-            setFormState(state => ({ ...state, report: null }))
+            setFormState(state => ({...state, report: null}))
         }
     }
     // on FORM SUBMIT
     const onFormSubmit = async (e) => {
         // prevent from refreshing the page
         e.preventDefault()
-        if (formState.img && formState.report){
+        if (formState.img && formState.report) {
             setLoading(true) // set the loading screen
             // show loading for 4 seconds (until the projects is updated)
             setTimeout(async () => {
                 await updateProject(projId, formState) // wait until data is updated
                 setLoading(false)
-                history.push(`${ROUTES.CATALOGUE}/${projId}`) // redirect ot project profile page
+                history.push(`${ROUTES.CATALOGUE}`) // redirect to catalogue
+                window.location.reload(false);
             }, 0) // by default the updating to our collection will be > 2 seconds so that we
             // dont need to add another value to timeout time
         } else {

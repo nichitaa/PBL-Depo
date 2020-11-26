@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { FiFilter } from "react-icons/fi";
-import { Modal } from "react-bootstrap";
-import { FilterModal } from "../index";
+import React, {useState} from 'react';
+import {FiFilter} from "react-icons/fi";
+import {Modal} from "react-bootstrap";
+import {FilterModal} from "../index";
 import s from './css/styles.module.css'
 
 const Filter = () => {

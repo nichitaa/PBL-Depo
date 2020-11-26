@@ -62,7 +62,7 @@ export default function Home() {
                             style={{height: "352px"}}>
                             {
                                 projects.map(project => {
-                                    return(
+                                    return (
                                         <div className="col-md-4 col-lg-3 item" key={project}>
                                             <div
                                                 className="d-flex d-lg-flex align-items-end justify-content-lg-center align-items-lg-end box"
