@@ -16,9 +16,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9baec77-2667-4bb5-8fdf-45df7eebcce8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="f9baec77-2667-4bb5-8fdf-45df7eebcce8" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,19 +53,19 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\constants" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Filter\css" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Search\css" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\ProjectPage\Feedback" />
-      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\AboutPage" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public\assets" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public\assets\js" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src" />
       <recent name="D:\PBL\pbl-project\pblbuild\pblv3\public\assets\img\my" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\constants" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Filter\css" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\components\Search\css" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\ProjectPage\Feedback" />
+      <recent name="D:\PBL\pbl-project\pblbuild\pblv3\src\pages\AboutPage" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
