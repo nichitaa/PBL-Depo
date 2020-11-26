@@ -1,12 +1,11 @@
 import React from 'react';
 import {render} from 'react-dom';
-import App from './App';
+import {Router} from "react-router-dom";
+import history from "./constants/history";
 import AppContext from "./context";
-
+import App from './App';
 // Importing the Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import history from "./constants/history";
-import {Router} from "react-router-dom";
 
 const app = (
     <Router history={history}>
