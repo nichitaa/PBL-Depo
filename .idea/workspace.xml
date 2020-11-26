@@ -17,25 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f9baec77-2667-4bb5-8fdf-45df7eebcce8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/constants/history.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CardGrid/OneCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CardGrid/OneCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Filter/Filter.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Filter/Filter.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/containers/AddFormContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/containers/AddFormContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/containers/EditProjectContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/containers/EditProjectContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/containers/NavBarContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/containers/NavBarContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AuthPages/ForgotPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AuthPages/ForgotPassword.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AuthPages/LogIn.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AuthPages/LogIn.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/AuthPages/SignUp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/AuthPages/SignUp.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/CataloguePage/Catalogue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/CataloguePage/Catalogue.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/HomePage/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/HomePage/Home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ProjectPage/EditProject.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ProjectPage/EditProject.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ProjectPage/ProjectPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ProjectPage/ProjectPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +110,7 @@
       <workItem from="1606306366659" duration="778000" />
       <workItem from="1606309976199" duration="2371000" />
       <workItem from="1606324020704" duration="13223000" />
-      <workItem from="1606376067286" duration="9504000" />
+      <workItem from="1606376067286" duration="10418000" />
     </task>
     <servers />
   </component>
