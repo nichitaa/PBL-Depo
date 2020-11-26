@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import {useDB} from "../../context/DBContext";
 import {CardGrid, Loading} from "../../components";
 import {Container, Col, Row} from "react-bootstrap";
@@ -6,7 +6,7 @@ import Search from "../../components/Search/Search";
 import Filter from "../../components/Filter/Filter";
 
 export default function Catalogue() {
-    // displayed projects are a copy of all projects, we use it in order to display the search projects
+    // displayed projects are a copy of all projects, we use it in order to display the searched projects
     const {
         displayedProjects: projects,
         loading,
@@ -48,7 +48,7 @@ export default function Catalogue() {
                 {loading ?
                     <Loading/> :
                     projects ?
-                        <CardGrid projects={projects} /> :
+                        <CardGrid projects={projects}/> :
                         <h1>No Projects Yet</h1>
                 }
             </div>

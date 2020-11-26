@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {useDB} from "../../context/DBContext";
 import AddFormModal from "../ProjectForm/AddFormModal";
-import { Loading } from "../../components";
+import {Loading} from "../../components";
 
 const AddFormContainer = ({hideModal}) => {
 
-    const { addNewProject } = useDB();
+    const {addNewProject} = useDB();
 
     // local states
     const initialState = {
@@ -39,18 +39,18 @@ const AddFormContainer = ({hideModal}) => {
             console.log("IMAGE: ", selectedImage);
         } else {
             alert('Please upload a jpeg or png image ');
-            setFormState(state => ( { ...state, img: null} ));
+            setFormState(state => ({...state, img: null}));
         }
     }
     // on pdf upload
     const onPdfReportChange = (e) => {
         let pdf = e.target.files[0]; // get the first file
         if (pdf && pdf.type === 'application/pdf') {
-            setFormState(state => ({ ...state, report: pdf, })) // update state with new pdf
+            setFormState(state => ({...state, report: pdf,})) // update state with new pdf
             console.log("PDF: ", pdf);
         } else {
             alert("Please upload the report in pdf format!")
-            setFormState(state => ({ ...state, report: null }))
+            setFormState(state => ({...state, report: null}))
         }
     }
     // clearing the fields
