@@ -1,7 +1,5 @@
 import React from 'react';
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {Card, Button } from "react-bootstrap";
 import {IoIosArrowForward} from "react-icons/io";
 import {Link} from "react-router-dom";
 import moment from "moment";
@@ -31,7 +29,7 @@ const OneCard = ({project}) => (
                         <div className="row">
                             <div className="col-md-12">
                                 <Link to={`${ROUTES.CATALOGUE}/${project.projectId}`}>
-                                    <Button variant="outline-primary">
+                                    <Button variant="outline-primary" >
                                         Read More <IoIosArrowForward size="1.4rem"/>
                                     </Button>
                                 </Link>

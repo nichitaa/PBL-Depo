@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { Form, Card, Button, Container, Alert } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import React, {useRef, useState} from 'react';
+import {Form, Card, Button, Container, Alert} from 'react-bootstrap';
+import {Link} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
 import * as ROUTES from "../../constants/routes";
 
@@ -9,7 +9,7 @@ export default function ForgotPassword() {
 
     const emailRef = useRef();
 
-    const { resetPassword } = useAuth();
+    const {resetPassword} = useAuth();
 
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');

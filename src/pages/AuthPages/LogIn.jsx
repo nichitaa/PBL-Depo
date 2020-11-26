@@ -1,23 +1,22 @@
-import React, { useRef, useState } from 'react';
-import { Form, Card, Button, Container, Alert } from 'react-bootstrap';
-import { Link, useHistory } from "react-router-dom";
+import React, {useRef, useState} from 'react';
+import {Form, Card, Button, Container, Alert} from 'react-bootstrap';
+import {Link} from "react-router-dom";
 import {useAuth} from "../../context/AuthContext";
 import * as ROUTES from "../../constants/routes";
+import history from "../../constants/history";
 
 
 export default function LogIn() {
 
-    const { currentUser } = useAuth();
+    const {currentUser} = useAuth();
 
     const emailRef = useRef();
     const passwordRef = useRef();
 
-    const { login } = useAuth();
+    const {login} = useAuth();
 
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-
-    const history = useHistory();
 
     // if user is already logged in ,pop up alert message
     if (currentUser) {

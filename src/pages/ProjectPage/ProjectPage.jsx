@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useHistory} from 'react-router-dom';
 import moment from 'moment';
 import {useDB} from "../../context/DBContext";
 import {useAuth} from "../../context/AuthContext";
 import Loading from "../../components/LoadingSpiner/Loading";
 import * as ROUTES from "../../constants/routes";
-import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {FaRegFilePdf} from "react-icons/fa";
 import {BsImageFill} from "react-icons/bs";
 import {getRating} from "../../helpers";
 import ProjectFeedbacks from "./Feedback/ProjectFeedbacks";
 import FeedbackForm from "./Feedback/FeedbackForm";
+import history from "../../constants/history";
 
 
 export default function ProjectPage({match}) {
@@ -26,16 +26,13 @@ export default function ProjectPage({match}) {
         deleteProject,
         projFeedback: feedbacks,
     } = useDB(); // from context
-    const { currentUser: user } = useAuth();
+    const {currentUser: user} = useAuth();
 
-    const history = useHistory();
     const projId = match.params.id; // project ID
 
     const onEdit = () => {
         if (edit) {
-            history.push({
-                pathname: `${ROUTES.CATALOGUE}/${project.projectId}/${ROUTES.EDIT}`,
-            })
+            history.push(`${ROUTES.CATALOGUE}/${project.projectId}/${ROUTES.EDIT}`)
         }
     }
     const onDelete = async () => {
@@ -90,24 +87,27 @@ export default function ProjectPage({match}) {
                         <p><strong>Project Theory Description:</strong> {project.projectTheoryDescription}</p>
                         <p><strong>User Email:</strong> {project.userEmail}</p>
                         <p><strong>Project Rating:</strong>{getRating(project.rating)}{project.rating}</p>
-                        { project.createdAt && <p><strong>Added:</strong> {moment(project.createdAt.toDate()).calendar()} </p> }
+                        {project.createdAt &&
+                        <p><strong>Added:</strong> {moment(project.createdAt.toDate()).calendar()} </p>}
                         <p><strong>Attachments: </strong>
                             <Button variant="outline-info">
-                            <FaRegFilePdf size="1.5rem"
-                                          onClick={() => window.open(project.projectReportURL)}/>
-                        </Button> &nbsp;
-                        <Button variant="outline-info">
-                            <BsImageFill size="1.5rem"
-                                         onClick={() => window.open(project.projectImageURL)}/>
-                        </Button>
+                                <FaRegFilePdf size="1.5rem"
+                                              onClick={() => window.open(project.projectReportURL)}/>
+                            </Button> &nbsp;
+                            <Button variant="outline-info">
+                                <BsImageFill size="1.5rem"
+                                             onClick={() => window.open(project.projectImageURL)}/>
+                            </Button>
                         </p>
                         {
                             edit &&
                             <>
-                                <Button variant="outline-warning" onClick={onEdit}
-                                >Edit Project</Button> &nbsp;
-                                <Button variant="outline-danger" onClick={onDelete}
-                                >Delete Project</Button>
+                                <Button variant="outline-warning" onClick={onEdit}>
+                                    Edit Project
+                                </Button> &nbsp;
+                                <Button variant="outline-danger" onClick={onDelete}>
+                                    Delete Project
+                                </Button>
                             </>
                         }
                         <hr/>
