@@ -13,6 +13,7 @@ const AddFormContainer = ({hideModal}) => {
         description: '',
         problemDescription: '',
         theoryDescription: '',
+        year: '1',
         img: null,
         report: null,
     }

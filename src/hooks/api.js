@@ -38,7 +38,7 @@ export async function upload(projId, data) {
             projectId: projId,
         }).then(() => {
             alert('A new project was just uploaded! Go check it out')
-            updateStats('Projects')
+            updateStats('Projects', 'add')
         }).catch(error => {
             alert(error.message)
         })
@@ -51,6 +51,7 @@ export async function deleteProject(projId, userId) {
                 .doc(userId).collection('UserProjects')
                 .doc(projId).delete().then(() => {
                 alert('Your project has been deleted successfully!')
+                updateStats('Projects', 'delete')
             })
         })
     return () => unsubscribe;
@@ -138,14 +139,20 @@ export async function isUserProject(projId, user) {
     return !!doc.exists;
 }
 
-export async function updateStats(doc) {
+export async function updateStats(doc, method) {
     const docref = db.collection('Stats')
         .doc(doc)
     docref.get().then(doc => {
         const temp = doc.data();
-        docref.update({
-            "Total": temp.Total + 1,
-        })
+        if (method === "add"){
+            docref.update({
+                "Total": temp.Total + 1,
+            })
+        } else {
+            docref.update({
+                "Total": temp.Total - 1,
+            })
+        }
     })
 }
 

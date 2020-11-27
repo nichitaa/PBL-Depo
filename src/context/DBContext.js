@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {db, storage} from "../firebase/firebase";
 import {useAuth} from "./AuthContext";
 import * as api from "../hooks/api";
@@ -33,11 +33,22 @@ export const DBProvider = ({children}) => {
         projects: 0,
     })
 
-    // get projects by filters
+    // get projects by filters:  *** -> listeners
     const getProjects = async (orderBy, direction) => {
         setLoading(true)
         return db.collection('ProjectForm')
             .orderBy(orderBy, direction)
+            .onSnapshot((snapshot) => {
+                setProjects(snapshot.docs.map((doc) => doc.data()));
+                setDisplayedProjects(snapshot.docs.map((doc) => doc.data()));
+                setLoading(false)
+            });
+    }
+
+    const getProjectsByYear = async (year) => {
+        setLoading(true)
+        return db.collection('ProjectForm')
+            .where("year", "==", `${year}`)
             .onSnapshot((snapshot) => {
                 setProjects(snapshot.docs.map((doc) => doc.data()));
                 setDisplayedProjects(snapshot.docs.map((doc) => doc.data()));
@@ -63,6 +74,7 @@ export const DBProvider = ({children}) => {
             projectTheoryDescription: form.theoryDescription,
             projectImageURL: await fileRef.getDownloadURL(),
             projectReportURL: await reportRef.getDownloadURL(),
+            year: form.year,
             createdAt: new Date(),
             userEmail: user.email,
             userId: user.uid,
@@ -173,6 +185,7 @@ export const DBProvider = ({children}) => {
         projects, // all projects state
         setProjects, // update state for fuse live search
         getProjects, // function to get the projects depending on filters
+        getProjectsByYear, // filter by year
 
         displayedProjects,
         setDisplayedProjects,

@@ -3,10 +3,11 @@ import {Modal} from "react-bootstrap";
 import {Container} from "react-bootstrap";
 import {Button} from "react-bootstrap";
 import {useDB} from "../../../context/DBContext";
+import {getProjectById} from "../../../hooks/api";
 
 const FilterModal = () => {
 
-    const { getProjects } = useDB();
+    const { getProjects, getProjectsByYear } = useDB();
 
     const filterNewestFirst = (e) => {
         getProjects("createdAt", "desc")
@@ -22,6 +23,10 @@ const FilterModal = () => {
 
     const LowRatingFirst = () => {
         getProjects("rating", "desc")
+    }
+
+    const byYear = (year) => {
+        getProjectsByYear(year)
     }
 
     return (
@@ -40,6 +45,11 @@ const FilterModal = () => {
                     <br/>
                     <Button variant="outline-dark" onClick={LowRatingFirst}>By Rating: High </Button>
                     <Button variant="outline-dark" onClick={HghRatingFirst}>By Rating: Low</Button>
+                    <br/>
+                    <Button variant="outline-dark" onClick={() => byYear(1)}>First Year Projects</Button>
+                    <Button variant="outline-dark" onClick={() => byYear(2)}>Second Year Projects</Button>
+                    <Button variant="outline-dark" onClick={() => byYear(3)}>Third Year Projects</Button>
+                    <Button variant="outline-dark" onClick={() => byYear(4)}>Forth Year Projects</Button>
                 </Container>
             </Modal.Body>
             <Modal.Footer>
