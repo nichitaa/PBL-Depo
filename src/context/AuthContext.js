@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { auth } from '../firebase/firebase';
+import {auth} from '../firebase/firebase';
 import * as api from "../hooks/api";
 
 
@@ -9,7 +9,7 @@ export const useAuth = () => {
     return useContext(AuthContext);
 }
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({children}) => {
 
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);

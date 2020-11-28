@@ -28,7 +28,7 @@ const OneCard = ({project}) => (
                     <div className="col-md-12">
                         <div className="row">
                             <div className="col-md-12">
-                                <Link to={`${ROUTES.CATALOGUE}/${project.projectId}`}>
+                                <Link to={`${ROUTES.CATALOGUE}/${project.Id}`}>
                                     <Button variant="outline-primary" >
                                         Read More <IoIosArrowForward size="1.4rem"/>
                                     </Button>

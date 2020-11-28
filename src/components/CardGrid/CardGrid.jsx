@@ -5,7 +5,7 @@ const CardGrid = ({projects}) => (
     <>
         <div className="row row-cols-1 row-cols-md-4" style={{marginLeft: "30px"}}>
             {projects.map((project, idx) =>
-                <div className="col mb-4" key={project.projectId}>
+                <div className="col mb-4" key={project.Id}>
                     <OneCard project={project}/>
                 </div>
             )}

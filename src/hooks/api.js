@@ -12,12 +12,12 @@ export async function addNewUser(id, email) {
     return () => unsubscribe();
 }
 
-export async function newRequest(projId, data) {
+export async function newRequest(Id, data) {
     const unsubscribe = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
-        .doc(projId)
+        .doc(Id)
         .set({
             ...data,
-            projectId: projId,
+            Id: Id,
             published: false
         }).then(() => {
             alert('Your request will be moderated soon!')
@@ -32,9 +32,9 @@ export async function newRequestsListeners() {
             snapshot.docs.map(doc => {
                 const project = doc.data(); // get the data
                 upload(doc.id, project); // upload it to the new collection
-                addProjectToUser(doc.id, project.userId, project); // link it to the user acc
+                addProjectToUser(project.userId, project); // link it to the user acc
                 // delete this request
-                db.collection(COLLECTIONS.PROJECTS_REQUESTS)
+                return db.collection(COLLECTIONS.PROJECTS_REQUESTS)
                     .doc(doc.id)
                     .delete()
             })
@@ -42,12 +42,12 @@ export async function newRequestsListeners() {
     return () => unsubscribe();
 }
 
-export async function upload(projId, data) {
+export async function upload(Id, data) {
     return await db.collection(COLLECTIONS.PROJECTS)
-        .doc(projId)
+        .doc(Id)
         .set({
             ...data,
-            projectId: projId,
+            Id: Id,
         }).then(() => {
             alert('A new project was just uploaded! Go check it out')
         }).catch(error => {
@@ -55,14 +55,15 @@ export async function upload(projId, data) {
         })
 }
 
-export async function deleteProject(projId, userId) {
+export async function deleteProject(Id, userId) {
     // first -> move it to the deleted projects collection
     const moveToDeletedCollection = async () => {
         // get project data
-        await getProjectById(projId).then(async ({project, feedback}) => {
+        await getProjectById(Id)
+            .then(async ({project, feedback}) => {
             // update DeletedProjects collection
             return await db.collection(COLLECTIONS.DELETED_PROJECTS)
-                .doc(project.projectId)
+                .doc(project.Id)
                 .set({
                     ...project,
                     feedbacks: feedback,
@@ -75,7 +76,7 @@ export async function deleteProject(projId, userId) {
     moveToDeletedCollection().then(async () => {
         // nested deletion
         return await db.collection(COLLECTIONS.PROJECTS)
-            .doc(projId)
+            .doc(Id)
             .collection(COLLECTIONS.PROJECT_FEEDBACKS) // first -> delete projects feedbacks collection
             .get()
             .then(res => {
@@ -85,13 +86,13 @@ export async function deleteProject(projId, userId) {
             })
             .then(async () => {
                 await db.collection(COLLECTIONS.PROJECTS) // second -> delete the project data
-                    .doc(projId)
+                    .doc(Id)
                     .delete()
                     .then(async () => {
                         await db.collection(COLLECTIONS.USERS_PROJECTS)
                             .doc(userId)
                             .collection(COLLECTIONS.USER_PROJECTS)
-                            .doc(projId)
+                            .doc(Id)
                             .delete()
                             .then(() => {
                                 alert('Your project has been deleted successfully!')
@@ -101,17 +102,17 @@ export async function deleteProject(projId, userId) {
     });
 }
 
-export async function addProjectToUser(projId, userId, proj) {
+export async function addProjectToUser(userId, project) {
     // new doc with the user id in this collection or reference to previous user doc
     const userDocument = db.collection(COLLECTIONS.USERS_PROJECTS).doc(userId)
     const [response] = await Promise.all([userDocument.collection(COLLECTIONS.USER_PROJECTS)
-        .doc(projId)
+        .doc(project.Id)
         .set({
-            ProjectName: proj.projectName,
-            id: projId,
+            ProjectName: project.projectName,
+            Id: project.Id,
         })
         .then(() => {
-            // -> need to check if current user id == project user id ***
+            // todo: -> need to check if current user id == project user id && after display the alert
             alert("Congratulations! A project has been assigned to your account!")
         }).catch(error => {
             alert(error.message)
@@ -119,19 +120,20 @@ export async function addProjectToUser(projId, userId, proj) {
     return response;
 }
 
-export async function getProjectById(projId) {
+export async function getProjectById(Id) {
     return await db.collection(COLLECTIONS.PROJECTS)
-        .doc(projId).get()
+        .doc(Id)
+        .get()
         .then(async (snapshot) => {
-            const feedback = await getProjectFeedback(projId)
+            const feedback = await getProjectFeedback(Id)
             const project = await snapshot.data()
             return {project, feedback}
         })
 }
 
-export async function getProjectFeedback(projId) {
+export async function getProjectFeedback(Id) {
     return db.collection(COLLECTIONS.PROJECTS)
-        .doc(projId)
+        .doc(Id)
         .collection(COLLECTIONS.PROJECT_FEEDBACKS)
         .get()
         .then((snapshot) => {
@@ -144,8 +146,9 @@ export async function getProjectFeedback(projId) {
 }
 
 export async function sendFeedback(project, feedback, rating, user) {
+
     return await db.collection(COLLECTIONS.PROJECTS)
-        .doc(project.projectId)
+        .doc(project.Id)
         .collection(COLLECTIONS.PROJECT_FEEDBACKS)
         .doc(user.uid)
         // update feedbacks collection
@@ -155,7 +158,7 @@ export async function sendFeedback(project, feedback, rating, user) {
             rating: rating,
         }).then(async () => {
             updateRating() // update
-            return await getProjectById(project.projectId) // return the updated project
+            return await getProjectById(project.Id) // return the updated project
         })
 
     function updateRating() {
@@ -165,19 +168,19 @@ export async function sendFeedback(project, feedback, rating, user) {
             currentProjectRating = 5
         }
         let updatedRating = (currentProjectRating + rating) / 2
-        db.collection(COLLECTIONS.PROJECTS)
-            .doc(project.projectId)
+        return db.collection(COLLECTIONS.PROJECTS)
+            .doc(project.Id)
             .update({
                 "rating": updatedRating
             })
     }
 }
 
-export async function isUserProject(projId, user) {
-    const docRef = await db.collection(COLLECTIONS.USERS_PROJECTS)
+export async function isUserProject(Id, user) {
+    const docRef = db.collection(COLLECTIONS.USERS_PROJECTS)
         .doc(user.uid)
         .collection(COLLECTIONS.USER_PROJECTS)
-        .doc(projId)
+        .doc(Id)
     const doc = await docRef.get() // get the doc
     // if doc exists -> true
     return !!doc.exists;

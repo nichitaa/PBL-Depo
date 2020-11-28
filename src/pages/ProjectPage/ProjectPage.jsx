@@ -28,30 +28,30 @@ export default function ProjectPage({match}) {
     } = useDB(); // from context
     const {currentUser: user} = useAuth();
 
-    const projId = match.params.id; // project ID
+    const projectId = match.params.id; // project ID
 
     const onEdit = () => {
         if (edit) {
-            history.push(`${ROUTES.CATALOGUE}/${project.projectId}/${ROUTES.EDIT}`)
+            history.push(`${ROUTES.CATALOGUE}/${project.Id}/${ROUTES.EDIT}`)
         }
     }
     const onDelete = async () => {
         if (window.confirm('Do you want to permanently delete this project')) {
-            await deleteProject(projId)
+            await deleteProject(projectId)
             history.push(ROUTES.CATALOGUE)
         }
     }
-    // runs when projId changes
+    // runs when projectId changes
     useEffect(() => {
         setLoading(true);
         setTimeout(() => {
             setProjState([]) // set the state back to empty
             console.log("useEffect on project id change🔥")
-            getProjectById(projId) // get the new project data, by new id
+            getProjectById(projectId) // get the new project data, by new id
             if (user) {
                 // async function to get the promise from isUserProject
                 const getEditPermission = async () => {
-                    return await isUserProject(projId) // true / false
+                    return await isUserProject(projectId) // true / false
                 }
                 // call async func
                 getEditPermission().then((response) => {
@@ -61,7 +61,7 @@ export default function ProjectPage({match}) {
             }
             setLoading(false);
         }, 1000)
-    }, [projId])
+    }, [projectId])
 
     return (
         <>

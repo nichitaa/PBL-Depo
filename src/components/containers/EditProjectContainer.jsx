@@ -8,7 +8,7 @@ import history from "../../constants/history";
 import * as COLLECTIONS from "../../constants/collections";
 
 
-const EditProjectContainer = ({projId}) => {
+const EditProjectContainer = ({projectId}) => {
 
     const {updateProject} = useDB(); // function to update project
 
@@ -30,7 +30,8 @@ const EditProjectContainer = ({projId}) => {
         // get the project data once
         const fetchData = async () => {
             const data = await db.collection(COLLECTIONS.PROJECTS)
-                .doc(projId).get()
+                .doc(projectId)
+                .get()
             await setFormState({
                 title: data.data().projectName,
                 description: data.data().projectDescription,
@@ -85,7 +86,7 @@ const EditProjectContainer = ({projId}) => {
             setLoading(true) // set the loading screen
             // show loading for 4 seconds (until the projects is updated)
             setTimeout(async () => {
-                await updateProject(projId, formState) // wait until data is updated
+                await updateProject(projectId, formState) // wait until data is updated
                 setLoading(false)
                 history.push(`${ROUTES.CATALOGUE}`) // redirect to catalogue
                 window.location.reload(false);

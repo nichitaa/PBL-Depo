@@ -11,11 +11,11 @@ export default function EditProject({match}) {
     const [editPermission, setEditPermission] = useState(false);
     const {isUserProject} = useDB();
     const {currentUser: user} = useAuth();
-    const projId = match.params.id
+    const projectId = match.params.id
 
     useEffect(() => {
         const getEditPermission = async () => {
-            return await isUserProject(projId)
+            return await isUserProject(projectId)
         }
         if (user) {
             getEditPermission().then(response => {
@@ -35,7 +35,7 @@ export default function EditProject({match}) {
             history.push(ROUTES.LOG_IN)
             window.location.reload(false);
         }
-    }, [projId])
+    }, [projectId])
 
 
     return (
@@ -43,7 +43,7 @@ export default function EditProject({match}) {
             {
                 !editPermission ?
                     <Loading/> :
-                    <EditProjectContainer projId={projId}/>
+                    <EditProjectContainer projectId={projectId}/>
             }
         </div>
     )

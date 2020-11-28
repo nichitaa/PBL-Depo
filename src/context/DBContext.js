@@ -58,7 +58,7 @@ export const DBProvider = ({children}) => {
     }
 
     // -> new request to updates/create project
-    const uploadProject = async (projId, form) => {
+    const uploadProject = async (Id, form) => {
         // global storage reference
         const storageRef = storage.ref();
         // upload bg image to storage
@@ -82,7 +82,7 @@ export const DBProvider = ({children}) => {
             rating: 5,
         }
 
-        return api.newRequest(projId, data)
+        return api.newRequest(Id, data)
     }
 
     // submit new project with image, pdf report, inputs state
@@ -94,19 +94,19 @@ export const DBProvider = ({children}) => {
     }
 
     // deleting the project by id
-    const deleteProject = async (projId) => {
-        return api.deleteProject(projId, user.uid)
+    const deleteProject = async (Id) => {
+        return api.deleteProject(Id, user.uid)
     }
 
     // updates the project in db
-    const updateProject = async (projId, form) => {
-        await uploadProject(projId, form)
+    const updateProject = async (Id, form) => {
+        await uploadProject(Id, form)
     }
 
     // get proj details + feedbacks details by id ( updates the state of the projectPage )
     // updates -> *** projState && projFeedback ***
-    const getProjectById = async (projId) => {
-        return api.getProjectById(projId).then(({project, feedback}) => {
+    const getProjectById = async (Id) => {
+        return api.getProjectById(Id).then(({project, feedback}) => {
             setProjFeedback(feedback)
             setProjState(project)
         })
@@ -127,12 +127,13 @@ export const DBProvider = ({children}) => {
         } else {
             console.log("Getting user Projects Data!")
             // ***{updates userProjectsData}*** get data for each project, by projects ids
-            const getData = (ids) => {
-                console.log("User has " + ids.length + " projects 🎦")
+            const getData = (projectsIds) => {
+                console.log("User has " + projectsIds.length + " projects 🎦")
                 let tempData = []
-                ids.map(id => {
+                projectsIds.map(id => {
                     return db.collection(COLLECTIONS.PROJECTS)
-                        .doc(id).get()
+                        .doc(id)
+                        .get()
                         .then(snapshot => {
                             tempData.push(snapshot.data())
                             // update user projects with new data
@@ -144,18 +145,18 @@ export const DBProvider = ({children}) => {
                 .doc(user.uid)
                 .collection(COLLECTIONS.USER_PROJECTS)
                 .onSnapshot(function (querySnapshot) {
-                    let projIds = []
+                    let projectsIds = []
                     querySnapshot.forEach(function (doc) {
-                        projIds.push(doc.id) // get the projects ids
+                        projectsIds.push(doc.id) // get the projects ids
                     })
-                    getData(projIds) // get projects data
+                    getData(projectsIds) // get projects data
                 })
         }
     }
 
     // true - false -> updates -> *** editPermission ***
-    const isUserProject = async (projId) => {
-        return api.isUserProject(projId, user).then(response => {
+    const isUserProject = async (Id) => {
+        return api.isUserProject(Id, user).then(response => {
             setEditPermission(response)
             return response
         })
