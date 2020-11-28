@@ -5,6 +5,8 @@ import {db} from "../../firebase/firebase";
 import * as ROUTES from "../../constants/routes";
 import Loading from "../LoadingSpiner/Loading";
 import history from "../../constants/history";
+import * as COLLECTIONS from "../../constants/collections";
+
 
 const EditProjectContainer = ({projId}) => {
 
@@ -27,7 +29,7 @@ const EditProjectContainer = ({projId}) => {
     useEffect(() => {
         // get the project data once
         const fetchData = async () => {
-            const data = await db.collection('ProjectForm')
+            const data = await db.collection(COLLECTIONS.PROJECTS)
                 .doc(projId).get()
             await setFormState({
                 title: data.data().projectName,

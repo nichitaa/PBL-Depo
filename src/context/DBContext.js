@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import {db, storage} from "../firebase/firebase";
 import {useAuth} from "./AuthContext";
 import * as api from "../hooks/api";
+import * as COLLECTIONS from "../constants/collections";
 
 const DBContext = React.createContext();
 
@@ -36,7 +37,7 @@ export const DBProvider = ({children}) => {
     // get projects by filters:  *** -> listeners
     const getProjects = async (orderBy, direction) => {
         setLoading(true)
-        return db.collection('ProjectForm')
+        return db.collection(COLLECTIONS.PROJECTS)
             .orderBy(orderBy, direction)
             .onSnapshot((snapshot) => {
                 setProjects(snapshot.docs.map((doc) => doc.data()));
@@ -47,7 +48,7 @@ export const DBProvider = ({children}) => {
 
     const getProjectsByYear = async (year) => {
         setLoading(true)
-        return db.collection('ProjectForm')
+        return db.collection(COLLECTIONS.PROJECTS)
             .where("year", "==", `${year}`)
             .onSnapshot((snapshot) => {
                 setProjects(snapshot.docs.map((doc) => doc.data()));
@@ -87,7 +88,7 @@ export const DBProvider = ({children}) => {
     // submit new project with image, pdf report, inputs state
     const addNewProject = async (formState) => {
         // create a local document
-        const document = db.collection('ProjectForm').doc()
+        const document = db.collection(COLLECTIONS.PROJECTS).doc()
         const documentId = document.id
         await uploadProject(documentId, formState)
     }
@@ -130,7 +131,7 @@ export const DBProvider = ({children}) => {
                 console.log("User has " + ids.length + " projects 🎦")
                 let tempData = []
                 ids.map(id => {
-                    return db.collection('ProjectForm')
+                    return db.collection(COLLECTIONS.PROJECTS)
                         .doc(id).get()
                         .then(snapshot => {
                             tempData.push(snapshot.data())
@@ -139,9 +140,9 @@ export const DBProvider = ({children}) => {
                         })
                 })
             }
-            return db.collection('UsersProjects')
+            return db.collection(COLLECTIONS.USERS_PROJECTS)
                 .doc(user.uid)
-                .collection('UserProjects')
+                .collection(COLLECTIONS.USER_PROJECTS)
                 .onSnapshot(function (querySnapshot) {
                     let projIds = []
                     querySnapshot.forEach(function (doc) {

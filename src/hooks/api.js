@@ -1,7 +1,8 @@
 import {db} from "../firebase/firebase";
+import * as COLLECTIONS from "../constants/collections";
 
 export async function newRequest(projId, data) {
-    const unsubscribe = await db.collection('ProjectsRequests')
+    const unsubscribe = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
         .doc(projId)
         .set({
             ...data,
@@ -14,7 +15,7 @@ export async function newRequest(projId, data) {
 }
 
 export async function newRequestsListeners() {
-    const unsub = await db.collection('ProjectsRequests')
+    const unsub = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
         .where("published", "==", true) // -> only those projects where the admin changed value to true
         .onSnapshot(snapshot => {
             snapshot.docs.map(doc => {
@@ -22,7 +23,7 @@ export async function newRequestsListeners() {
                 upload(doc.id, project); // upload it to the new collection
                 addProjectToUser(doc.id, project.userId, project); // link it to the user acc
                 // delete this request
-                db.collection('ProjectsRequests')
+                db.collection(COLLECTIONS.PROJECTS_REQUESTS)
                     .doc(doc.id)
                     .delete()
             })
@@ -31,7 +32,7 @@ export async function newRequestsListeners() {
 }
 
 export async function upload(projId, data) {
-    return await db.collection('ProjectForm')
+    return await db.collection(COLLECTIONS.PROJECTS)
         .doc(projId)
         .set({
             ...data,
@@ -44,11 +45,13 @@ export async function upload(projId, data) {
         })
 }
 
+// todo: create a new collection for deleted projects and move them there
 export async function deleteProject(projId, userId) {
-    const unsubscribe = await db.collection('ProjectForm')
-        .doc(projId).delete().then(() => {
-            db.collection('UsersProjects')
-                .doc(userId).collection('UserProjects')
+    const unsubscribe = await db.collection(COLLECTIONS.PROJECTS)
+        .doc(projId)
+        .delete().then(() => {
+            db.collection(COLLECTIONS.USERS_PROJECTS)
+                .doc(userId).collection(COLLECTIONS.USER_PROJECTS)
                 .doc(projId).delete().then(() => {
                 alert('Your project has been deleted successfully!')
                 updateStats('Projects', 'delete')
@@ -59,8 +62,8 @@ export async function deleteProject(projId, userId) {
 
 export async function addProjectToUser(projId, userId, proj) {
     // new doc with the user id in this collection or reference to previous user doc
-    const userDocument = db.collection('UsersProjects').doc(userId)
-    const [response] = await Promise.all([userDocument.collection('UserProjects')
+    const userDocument = db.collection(COLLECTIONS.USERS_PROJECTS).doc(userId)
+    const [response] = await Promise.all([userDocument.collection(COLLECTIONS.USER_PROJECTS)
         .doc(projId)
         .set({
             ProjectName: proj.projectName,
@@ -76,7 +79,7 @@ export async function addProjectToUser(projId, userId, proj) {
 }
 
 export async function getProjectById(projId) {
-    return await db.collection('ProjectForm')
+    return await db.collection(COLLECTIONS.PROJECTS)
         .doc(projId).get()
         .then(async (snapshot) => {
             const feedback = await getProjectFeedback(projId)
@@ -86,9 +89,9 @@ export async function getProjectById(projId) {
 }
 
 export async function getProjectFeedback(projId) {
-    return db.collection('ProjectForm')
+    return db.collection(COLLECTIONS.PROJECTS)
         .doc(projId)
-        .collection('Feedbacks')
+        .collection(COLLECTIONS.PROJECT_FEEDBACKS)
         .get()
         .then((snapshot) => {
             let feedback = []
@@ -100,9 +103,9 @@ export async function getProjectFeedback(projId) {
 }
 
 export async function sendFeedback(project, feedback, rating, user) {
-    return await db.collection('ProjectForm')
+    return await db.collection(COLLECTIONS.PROJECTS)
         .doc(project.projectId)
-        .collection('Feedbacks')
+        .collection(COLLECTIONS.PROJECT_FEEDBACKS)
         .doc(user.uid)
         // update feedbacks collection
         .set({
@@ -121,7 +124,7 @@ export async function sendFeedback(project, feedback, rating, user) {
             currentProjectRating = 5
         }
         let updatedRating = (currentProjectRating + rating) / 2
-        db.collection('ProjectForm')
+        db.collection(COLLECTIONS.PROJECTS)
             .doc(project.projectId)
             .update({
                 "rating": updatedRating
@@ -130,9 +133,9 @@ export async function sendFeedback(project, feedback, rating, user) {
 }
 
 export async function isUserProject(projId, user) {
-    const docRef = await db.collection('UsersProjects')
+    const docRef = await db.collection(COLLECTIONS.USERS_PROJECTS)
         .doc(user.uid)
-        .collection('UserProjects')
+        .collection(COLLECTIONS.USER_PROJECTS)
         .doc(projId)
     const doc = await docRef.get() // get the doc
     // if doc exists -> true
@@ -140,7 +143,7 @@ export async function isUserProject(projId, user) {
 }
 
 export async function updateStats(doc, method) {
-    const docref = db.collection('Stats')
+    const docref = db.collection(COLLECTIONS.STATS)
         .doc(doc)
     docref.get().then(doc => {
         const temp = doc.data();
@@ -156,8 +159,9 @@ export async function updateStats(doc, method) {
     })
 }
 
+// todo: update projects stats using PROJECTS collection .size property
 export async function getStats(setStats) {
-    return db.collection('Stats')
+    return db.collection(COLLECTIONS.STATS)
         .onSnapshot((snapshot) => {
             snapshot.docs.map((doc) => {
                 if (doc.id === "Projects") {
