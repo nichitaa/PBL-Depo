@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {db, storage} from "../firebase/firebase";
 import {useAuth} from "./AuthContext";
 import * as api from "../hooks/api";
@@ -160,50 +160,38 @@ export const DBProvider = ({children}) => {
         })
     }
 
-    // default sort for card group, grab the newest projects first (run once)
-    useEffect(() => {
-        console.log("First useEffect, getting first time data 😆")
-        getProjects("createdAt", "desc") // -> get all projects (listener)
-        getUserProjects() // if auth then get users projects
-        api.newRequestsListeners() //  -> if admin changes some projects from 'request' collection (listener)
-        api.getStats(setStats); // -> listener to app stats
-    }, [])
-
-    // when user changes
-    useEffect(() => {
-        console.log("User State Changed!")
-        // reset projects data
-        setUserProjectsData({data: []})
-        // get the new projects data
-        getUserProjects()
-    }, [user])
-
     const value = {
-        loading,
-        stats,
+        // for startup:
+        getProjects, // listener -> gets projects by rating/createdAt filter
+        getUserProjects, // listener -> gets only users projects if exists
+        setUserProjectsData, // setState -> users projects
+        setStats, // setState -> updates stats
 
-        projects, // all projects state
-        setProjects, // update state for fuse live search
-        getProjects, // function to get the projects depending on filters
-        getProjectsByYear, // filter by year
+        // other utils:
+        loading, // state -> loading
+        stats, // state -> stats
 
-        displayedProjects,
-        setDisplayedProjects,
+        projects, // state -> all projects
+        setProjects, // setState -> update state for fuse live search
+        getProjectsByYear, // listener -> filter projects by year if requested
+        displayedProjects, // state -> the displayed projects (for fuse.js)
+        setDisplayedProjects, // setState -> set displayed projects (for fuse.js)
 
-        userProjects: userProjectsData.data, // only users projects data, if any and user logged in
-        isUserProject,
+        // user related:
+        userProjects: userProjectsData.data, // state -> only users projects data
+        isUserProject, // function -> checks if the project belongs to current user
 
-        // individual project
-        setProjState,
-        projState,
-        projFeedback,
-        editPermission,
-        updateProject,
-        deleteProject,
+        // individual project:
+        projState, // state -> one project data
+        setProjState, // setState -> set one project data
+        projFeedback, // state -> one project feedback
+        editPermission, // state -> if the project belongs to current user
+        updateProject, // function -> request update project with new data
+        deleteProject, // function -> deletes project
 
-        addNewProject,
-        getProjectById,
-        sendFeedback,
+        addNewProject, // function -> request uploading new project
+        getProjectById, // function -> updates the state for the project && feedback
+        sendFeedback, // function -> updates a project with new user feedback
     }
 
     return (

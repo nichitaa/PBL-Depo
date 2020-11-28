@@ -15,6 +15,7 @@ const EditProjectContainer = ({projId}) => {
         description: '',
         problemDescription: '',
         theoryDescription: '',
+        year: '',
         img: null,
         report: null
     } // to get rid of the uncontrolled input error
@@ -33,6 +34,7 @@ const EditProjectContainer = ({projId}) => {
                 description: data.data().projectDescription,
                 problemDescription: data.data().projectProblemDescription,
                 theoryDescription: data.data().projectTheoryDescription,
+                year: data.data().year,
             })
         }
         fetchData().then();

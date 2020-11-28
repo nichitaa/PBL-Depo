@@ -8,6 +8,7 @@ import * as ROUTES from './constants/routes';
 import {NavBarContainer, Footer, Particles} from "./components";
 
 import routes from "./constants";
+import useStartup from "./hooks/useStartup";
 
 const routeComponents = routes.map(({path, component}, key) => {
     if (path === ROUTES.USER) {
@@ -18,6 +19,7 @@ const routeComponents = routes.map(({path, component}, key) => {
 
 
 export default function App() {
+    useStartup();
     return (
         <>
             <Particles/>
