@@ -16,7 +16,9 @@ export const AuthProvider = ({ children }) => {
 
     const signup = (email, password) => {
         return auth.createUserWithEmailAndPassword(email, password)
-            .then(api.updateStats("Users"));
+            .then((user) => {
+                api.addNewUser(user.user.uid, user.user.email); // update Users collection
+            });
     }
 
     const login = (email, password) => {

@@ -1,6 +1,17 @@
 import {db} from "../firebase/firebase";
 import * as COLLECTIONS from "../constants/collections";
 
+export async function addNewUser(id, email) {
+    const unsubscribe = await db.collection(COLLECTIONS.USERS)
+        .doc(id)
+        .set({
+            email: email,
+        }).then(() => {
+            console.log("+1 user to db");
+        }).catch(err => console.log(err))
+    return () => unsubscribe();
+}
+
 export async function newRequest(projId, data) {
     const unsubscribe = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
         .doc(projId)
@@ -15,7 +26,7 @@ export async function newRequest(projId, data) {
 }
 
 export async function newRequestsListeners() {
-    const unsub = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
+    const unsubscribe = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
         .where("published", "==", true) // -> only those projects where the admin changed value to true
         .onSnapshot(snapshot => {
             snapshot.docs.map(doc => {
@@ -28,7 +39,7 @@ export async function newRequestsListeners() {
                     .delete()
             })
         })
-    return () => unsub();
+    return () => unsubscribe();
 }
 
 export async function upload(projId, data) {
@@ -39,7 +50,6 @@ export async function upload(projId, data) {
             projectId: projId,
         }).then(() => {
             alert('A new project was just uploaded! Go check it out')
-            updateStats('Projects', 'add')
         }).catch(error => {
             alert(error.message)
         })
@@ -54,7 +64,6 @@ export async function deleteProject(projId, userId) {
                 .doc(userId).collection(COLLECTIONS.USER_PROJECTS)
                 .doc(projId).delete().then(() => {
                 alert('Your project has been deleted successfully!')
-                updateStats('Projects', 'delete')
             })
         })
     return () => unsubscribe;
@@ -142,41 +151,21 @@ export async function isUserProject(projId, user) {
     return !!doc.exists;
 }
 
-export async function updateStats(doc, method) {
-    const docref = db.collection(COLLECTIONS.STATS)
-        .doc(doc)
-    docref.get().then(doc => {
-        const temp = doc.data();
-        if (method === "add"){
-            docref.update({
-                "Total": temp.Total + 1,
-            })
-        } else {
-            docref.update({
-                "Total": temp.Total - 1,
-            })
-        }
-    })
-}
-
-// todo: update projects stats using PROJECTS collection .size property
-export async function getStats(setStats) {
-    return db.collection(COLLECTIONS.STATS)
-        .onSnapshot((snapshot) => {
-            snapshot.docs.map((doc) => {
-                if (doc.id === "Projects") {
-                    setStats(prev => ({
-                            ...prev,
-                            projects: doc.data().Total
-                        })
-                    )
-                } else {
-                    setStats(prev => ({
-                            ...prev,
-                            users: doc.data().Total
-                        })
-                    )
-                }
-            })
-        });
+export function getStats(setStats) {
+    db.collection(COLLECTIONS.PROJECTS)
+        .onSnapshot(snapshot => {
+            console.log("total projects ->", snapshot.size);
+            setStats(prev => ({
+                ...prev,
+                projects: snapshot.size,
+            }))
+        })
+    db.collection(COLLECTIONS.USERS)
+        .onSnapshot(snapshot => {
+            console.log("total users ->", snapshot.size);
+            setStats(prev => ({
+                ...prev,
+                users: snapshot.size,
+            }))
+        })
 }

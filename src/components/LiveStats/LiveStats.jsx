@@ -16,7 +16,6 @@ const LiveStats = () => {
             {
                 show &&
                 <>
-
                     <h3>
                         Total Projects: &nbsp; &nbsp;
                         <AnimatedNumber
@@ -34,7 +33,6 @@ const LiveStats = () => {
                         />
                     </h3>
                 </>
-
             }
         </div>
     )
