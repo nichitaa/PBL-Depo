@@ -35,6 +35,7 @@ export default function EditProject({match}) {
             history.push(ROUTES.LOG_IN)
             window.location.reload(false);
         }
+        // eslint-disable-next-line
     }, [projectId])
 
 

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useDB} from "../../context/DBContext";
 import EditForm from "../ProjectForm/EditForm";
-import {db} from "../../firebase/firebase";
+import {db} from "../../firebase/fire";
 import * as ROUTES from "../../constants/routes";
 import Loading from "../LoadingSpiner/Loading";
 import history from "../../constants/history";
@@ -41,7 +41,7 @@ const EditProjectContainer = ({projectId}) => {
             })
         }
         fetchData().then();
-    }, [])
+    }, [projectId])
 
     // HANDLERS
     // on input change

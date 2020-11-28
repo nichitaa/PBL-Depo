@@ -1,4 +1,4 @@
-import {db} from "../firebase/firebase";
+import {db} from "../firebase/fire";
 import * as COLLECTIONS from "../constants/collections";
 
 export async function addNewUser(id, email) {

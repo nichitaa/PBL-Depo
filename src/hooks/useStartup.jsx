@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import * as api from "./api";
 import {useDB} from "../context/DBContext";
 import {useAuth} from "../context/AuthContext";
@@ -21,6 +21,7 @@ const useStartup = () => {
         getUserProjects() // if auth then get users projects
         api.newRequestsListeners() //  -> if admin changes some projects from 'request' collection (listener)
         api.getStats(setStats); // -> listener to app stats
+        // eslint-disable-next-line
     }, [])
 
     // when user changes
@@ -30,6 +31,7 @@ const useStartup = () => {
         setUserProjectsData({data: []})
         // get the new projects data
         getUserProjects()
+        // eslint-disable-next-line
     }, [user])
 
 }

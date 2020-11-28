@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {db, storage} from "../firebase/firebase";
+import {db, storage} from "../firebase/fire";
 import {useAuth} from "./AuthContext";
 import * as api from "../hooks/api";
 import * as COLLECTIONS from "../constants/collections";

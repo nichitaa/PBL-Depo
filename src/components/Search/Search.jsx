@@ -26,6 +26,7 @@ const Search = () => {
         } else { // reset to all projects
             setDisplayedProjects(projects);
         }
+        // eslint-disable-next-line
     }, [search])
     return (
         <div className={s.search__container}>

@@ -61,6 +61,7 @@ export default function ProjectPage({match}) {
             }
             setLoading(false);
         }, 1000)
+        // eslint-disable-next-line
     }, [projectId])
 
     return (
@@ -74,7 +75,7 @@ export default function ProjectPage({match}) {
                         <Container>
                             <Row className="row justify-content-center">
                                 <Col className="col-md-5 ">
-                                    <img className="mw-100" src={project.projectImageURL}/>
+                                    <img className="mw-100" src={project.projectImageURL} alt="Project background"/>
                                     {/*<Image className="mw-100" src={projState.projectImageURL}*/}
                                     {/*       key={projState.projectImageURL}*/}
                                     {/*       rounded/>*/}

@@ -2,7 +2,7 @@ import React from 'react';
 import Particles from 'react-particles-js';
 import options from './config.json'
 
-export default () =>  (
+const ParticlesBG = () => (
     <Particles
         params={options}
         style={{
@@ -13,3 +13,6 @@ export default () =>  (
             zIndex: "-1"
         }}/>
 )
+
+export default ParticlesBG;
+
