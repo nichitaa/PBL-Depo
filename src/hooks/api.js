@@ -55,18 +55,50 @@ export async function upload(projId, data) {
         })
 }
 
-// todo: create a new collection for deleted projects and move them there
 export async function deleteProject(projId, userId) {
-    const unsubscribe = await db.collection(COLLECTIONS.PROJECTS)
-        .doc(projId)
-        .delete().then(() => {
-            db.collection(COLLECTIONS.USERS_PROJECTS)
-                .doc(userId).collection(COLLECTIONS.USER_PROJECTS)
-                .doc(projId).delete().then(() => {
-                alert('Your project has been deleted successfully!')
-            })
+    // first -> move it to the deleted projects collection
+    const moveToDeletedCollection = async () => {
+        // get project data
+        await getProjectById(projId).then(async ({project, feedback}) => {
+            // update DeletedProjects collection
+            return await db.collection(COLLECTIONS.DELETED_PROJECTS)
+                .doc(project.projectId)
+                .set({
+                    ...project,
+                    feedbacks: feedback,
+                })
+                .then()
+                .catch(err => console.log(err));
         })
-    return () => unsubscribe;
+    }
+    // second -> delete the project from main projects collection
+    moveToDeletedCollection().then(async () => {
+        // nested deletion
+        return await db.collection(COLLECTIONS.PROJECTS)
+            .doc(projId)
+            .collection(COLLECTIONS.PROJECT_FEEDBACKS) // first -> delete projects feedbacks collection
+            .get()
+            .then(res => {
+                res.forEach(item => {
+                    item.ref.delete()
+                })
+            })
+            .then(async () => {
+                await db.collection(COLLECTIONS.PROJECTS) // second -> delete the project data
+                    .doc(projId)
+                    .delete()
+                    .then(async () => {
+                        await db.collection(COLLECTIONS.USERS_PROJECTS)
+                            .doc(userId)
+                            .collection(COLLECTIONS.USER_PROJECTS)
+                            .doc(projId)
+                            .delete()
+                            .then(() => {
+                                alert('Your project has been deleted successfully!')
+                            })
+                    })
+            })
+    });
 }
 
 export async function addProjectToUser(projId, userId, proj) {
