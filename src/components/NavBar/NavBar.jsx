@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {Navbar, Nav, NavDropdown, Modal, Button, Form, InputGroup, FormControl, Col} from 'react-bootstrap';
-import {BsSearch} from "react-icons/bs";
+import {Navbar, Nav, NavDropdown, Modal, Button} from 'react-bootstrap';
 import AddFormContainer from "../containers/AddFormContainer";
 import * as ROUTES from "../../constants/routes";
 import 'bootstrap/dist/css/bootstrap.min.css';

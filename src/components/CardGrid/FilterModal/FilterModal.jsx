@@ -3,7 +3,6 @@ import {Modal} from "react-bootstrap";
 import {Container} from "react-bootstrap";
 import {Button} from "react-bootstrap";
 import {useDB} from "../../../context/DBContext";
-import {getProjectById} from "../../../hooks/api";
 
 const FilterModal = () => {
 
