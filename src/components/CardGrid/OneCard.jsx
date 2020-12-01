@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import moment from "moment";
 import {IconContext} from "react-icons";
 import * as ROUTES from "../../constants/routes";
+import * as FIELDS from "../../constants/fields";
 import {getRating} from "../../helpers";
 
 
@@ -12,14 +13,14 @@ const OneCard = ({project}) => (
     <Card style={{maxWidth: '18rem', maxHeight: '25rem', height: '25rem'}}>
         <div>
             <Card.Img variant="top"
-                      src={project.projectImageURL}
+                      src={project[FIELDS.IMAGE_URL]}
                       style={{maxHeight: '12rem'}}
             />
         </div>
         <Card.Body>
-            <Card.Title>{project.projectName}</Card.Title>
+            <Card.Title>{project[FIELDS.TITLE]}</Card.Title>
             <Card.Text style={{maxHeight: '4rem', overflow: 'hidden'}}>
-                {project.projectDescription}
+                {project[FIELDS.DESCRIPTION]}
             </Card.Text>
         </Card.Body>
         <Card.Footer className="text-muted">
@@ -28,7 +29,7 @@ const OneCard = ({project}) => (
                     <div className="col-md-12">
                         <div className="row">
                             <div className="col-md-12">
-                                <Link to={`${ROUTES.CATALOGUE}/${project.Id}`}>
+                                <Link to={`${ROUTES.CATALOGUE}/${project[FIELDS.ID]}`}>
                                     <Button variant="outline-primary" >
                                         Read More <IoIosArrowForward size="1.4rem"/>
                                     </Button>
@@ -36,14 +37,14 @@ const OneCard = ({project}) => (
                             </div>
                             <div className="col-md-12">
                                 <IconContext.Provider value={{color: "purple", size: "1rem"}}>
-                                    {getRating(project.rating)}
+                                    {getRating(project[FIELDS.RATING])}
                                 </IconContext.Provider>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-md-12">
                                 <small>
-                                    Added: {moment(project.createdAt.toDate()).calendar()}
+                                    Added: {moment(project[FIELDS.CREATED_AT].toDate()).calendar()}
                                 </small>
                             </div>
                         </div>

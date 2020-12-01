@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDB} from "../../context/DBContext";
-import AddFormModal from "../ProjectForm/AddFormModal";
-import {Loading} from "../../components";
+import {Loading, AddFormModal} from "../../components";
+import * as FIELDS from "../../constants/fields";
 
 const AddFormContainer = ({hideModal}) => {
 
@@ -9,17 +9,15 @@ const AddFormContainer = ({hideModal}) => {
 
     // local states
     const initialState = {
-        title: '',
-        description: '',
-        problemDescription: '',
-        theoryDescription: '',
-        year: '1',
-        img: null,
-        report: null,
+        [FIELDS.TITLE]: '',
+        [FIELDS.DESCRIPTION]: '',
+        [FIELDS.PROBLEM_DESCRIPTION]: '',
+        [FIELDS.THEORY_DESCRIPTION]: '',
+        [FIELDS.YEAR]: '1',
+        [FIELDS.IMAGE_URL]: null,
+        [FIELDS.REPORT_URL]: null,
     }
     const [formState, setFormState] = useState(initialState);
-    // const [img, setImg] = useState(null);
-    // const [report, setReport] = useState(null);
     const [loading, setLoading] = useState(false);
 
     // HANDLERS
@@ -36,22 +34,31 @@ const AddFormContainer = ({hideModal}) => {
         const imageTypes = ['image/png', 'image/jpeg'];
         let selectedImage = e.target.files[0]; // get the first image
         if (selectedImage && imageTypes.includes(selectedImage.type)) { // validate, if not jpeg/pgn throw error
-            setFormState(prev => ({...prev, img: selectedImage,})) // update state with new image
+            setFormState(prev => ({
+                ...prev,
+                [FIELDS.IMAGE_URL]: selectedImage
+            })) // update state with new image
             console.log("IMAGE: ", selectedImage);
         } else {
             alert('Please upload a jpeg or png image ');
-            setFormState(state => ({...state, img: null}));
+            setFormState(state => ({
+                ...state,
+                [FIELDS.IMAGE_URL]: null}));
         }
     }
     // on pdf upload
     const onPdfReportChange = (e) => {
         let pdf = e.target.files[0]; // get the first file
         if (pdf && pdf.type === 'application/pdf') {
-            setFormState(state => ({...state, report: pdf,})) // update state with new pdf
+            setFormState(state => ({
+                ...state,
+                [FIELDS.REPORT_URL]: pdf,})) // update state with new pdf
             console.log("PDF: ", pdf);
         } else {
             alert("Please upload the report in pdf format!")
-            setFormState(state => ({...state, report: null}))
+            setFormState(state => ({
+                ...state,
+                [FIELDS.REPORT_URL]: null}))
         }
     }
     // clearing the fields
@@ -62,7 +69,7 @@ const AddFormContainer = ({hideModal}) => {
     const onFormSubmit = async (e) => {
         // prevent from refreshing the page
         e.preventDefault()
-        if (formState.img && formState.report) {
+        if (formState[FIELDS.IMAGE_URL] && formState[FIELDS.REPORT_URL]) {
             setLoading(true)
             await addNewProject(formState)
             hideModal()

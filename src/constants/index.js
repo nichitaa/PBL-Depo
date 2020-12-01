@@ -1,5 +1,6 @@
 import * as ROUTES from "./routes";
 import {AboutUs, Catalogue, EditProject, ForgotPassword, Home, LogIn, ProjectPage, SignUp, User} from "../pages";
+import {PageNotFound} from "../components";
 
 const routes = [{
     path: ROUTES.EDIT_PROJECT,
@@ -28,6 +29,9 @@ const routes = [{
 }, {
     path: ROUTES.HOME,
     component: Home,
+}, {
+    path: ROUTES.PAGE_NOT_FOUND,
+    component: PageNotFound,
 }];
 
 export default routes;

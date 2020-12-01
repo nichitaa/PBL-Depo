@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {auth} from '../firebase/fire';
+import {auth} from '../firebase/firebase';
 import * as api from "../hooks/api";
 
 

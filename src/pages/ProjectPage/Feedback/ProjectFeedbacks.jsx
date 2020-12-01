@@ -1,4 +1,5 @@
 import React from 'react';
+import * as FIELDS from "../../../constants/fields";
 
 const ProjectFeedbacks = ({feedbacks}) => (
     <>
@@ -8,9 +9,9 @@ const ProjectFeedbacks = ({feedbacks}) => (
                 feedbacks.map((feedback, idx) =>
                     (
                         <React.Fragment key={idx}>
-                            <p><strong>User: </strong>{feedback.email}</p>
-                            <p><strong>Feedback message: </strong>{feedback.message}</p>
-                            <p><strong>Rating: </strong>{feedback.rating}</p>
+                            <p><strong>User: </strong>{feedback[FIELDS.FEEDBACK_EMAIL]}</p>
+                            <p><strong>Feedback message: </strong>{feedback[FIELDS.FEEDBACK_MESSAGE]}</p>
+                            <p><strong>Rating: </strong>{feedback[FIELDS.FEEDBACK_RATING]}</p>
                             <br/>
                         </React.Fragment>
                     )

@@ -1,25 +1,24 @@
 import React, {useState, useEffect} from 'react';
 import {useDB} from "../../context/DBContext";
-import EditForm from "../ProjectForm/EditForm";
-import {db} from "../../firebase/fire";
+import {db} from "../../firebase/firebase";
 import * as ROUTES from "../../constants/routes";
-import Loading from "../LoadingSpiner/Loading";
+import {Loading, EditForm} from "../../components";
 import history from "../../constants/history";
 import * as COLLECTIONS from "../../constants/collections";
-
+import * as FIELDS from "../../constants/fields";
 
 const EditProjectContainer = ({projectId}) => {
 
     const {updateProject} = useDB(); // function to update project
 
     const initialState = {
-        title: '',
-        description: '',
-        problemDescription: '',
-        theoryDescription: '',
-        year: '',
-        img: null,
-        report: null
+        [FIELDS.TITLE]: '',
+        [FIELDS.DESCRIPTION]: '',
+        [FIELDS.PROBLEM_DESCRIPTION]: '',
+        [FIELDS.THEORY_DESCRIPTION]: '',
+        [FIELDS.YEAR]: '',
+        [FIELDS.IMAGE_URL]: null,
+        [FIELDS.REPORT_URL]: null
     } // to get rid of the uncontrolled input error
     const [formState, setFormState] = useState(initialState);
     // const [img, setImg] = useState(null);
@@ -33,11 +32,11 @@ const EditProjectContainer = ({projectId}) => {
                 .doc(projectId)
                 .get()
             await setFormState({
-                title: data.data().projectName,
-                description: data.data().projectDescription,
-                problemDescription: data.data().projectProblemDescription,
-                theoryDescription: data.data().projectTheoryDescription,
-                year: data.data().year,
+                [FIELDS.TITLE]: data.data()[FIELDS.TITLE],
+                [FIELDS.DESCRIPTION]: data.data()[FIELDS.DESCRIPTION],
+                [FIELDS.PROBLEM_DESCRIPTION]: data.data()[FIELDS.PROBLEM_DESCRIPTION],
+                [FIELDS.THEORY_DESCRIPTION]: data.data()[FIELDS.THEORY_DESCRIPTION],
+                [FIELDS.YEAR]: data.data()[FIELDS.YEAR],
             })
         }
         fetchData().then();
@@ -58,11 +57,15 @@ const EditProjectContainer = ({projectId}) => {
         let selectedImage = e.target.files[0]; // get the first image
         if (selectedImage && imageTypes.includes(selectedImage.type)) { // validate, if not jpeg/pgn throw error
             // setImg(selectedImage);
-            setFormState(prev => ({...prev, img: selectedImage,})) // update state with new image
+            setFormState(prev => ({
+                ...prev,
+                [FIELDS.IMAGE_URL]: selectedImage,})) // update state with new image
             console.log("IMAGE: ", selectedImage);
         } else {
             alert('Please upload a jpeg or png image ');
-            setFormState(state => ({...state, img: null}));
+            setFormState(state => ({
+                ...state,
+                [FIELDS.IMAGE_URL]: null}));
         }
     }
     // on pdf upload
@@ -70,19 +73,25 @@ const EditProjectContainer = ({projectId}) => {
         let pdf = e.target.files[0]; // get the first file
         if (pdf && pdf.type === 'application/pdf') {
             // setReport(pdf);
-            setFormState(state => ({...state, report: pdf,})) // update state with new pdf
+            setFormState(state => ({
+                ...state,
+                [FIELDS.REPORT_URL]: pdf
+            })) // update state with new pdf
             console.log("PDF: ", pdf);
         } else {
             alert("Please upload the report in pdf format!")
             // setReport(null);
-            setFormState(state => ({...state, report: null}))
+            setFormState(state => ({
+                ...state,
+                [FIELDS.REPORT_URL]: null
+            }))
         }
     }
     // on FORM SUBMIT
     const onFormSubmit = async (e) => {
         // prevent from refreshing the page
         e.preventDefault()
-        if (formState.img && formState.report) {
+        if (formState[FIELDS.IMAGE_URL] && formState[FIELDS.REPORT_URL]) {
             setLoading(true) // set the loading screen
             // show loading for 4 seconds (until the projects is updated)
             setTimeout(async () => {

@@ -10,3 +10,4 @@ export const USER = '/user';
 export const EDIT = 'edit';
 
 export const HOME = '/';
+export const PAGE_NOT_FOUND = '/404'

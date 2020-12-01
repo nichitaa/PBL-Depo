@@ -1,9 +1,8 @@
 import React from 'react';
 import {useDB} from "../../context/DBContext";
-import {CardGrid, Loading} from "../../components";
+import {CardGrid, Loading, Search, Filter} from "../../components";
 import {Container, Col, Row} from "react-bootstrap";
-import Search from "../../components/Search/Search";
-import Filter from "../../components/Filter/Filter";
+
 
 export default function Catalogue() {
     // displayed projects are a copy of all projects, we use it in order to display the searched projects

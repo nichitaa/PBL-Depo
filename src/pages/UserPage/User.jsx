@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useAuth} from "../../context/AuthContext";
 import {useDB} from "../../context/DBContext";
-import {CardGrid} from "../../components";
-import {Loading} from "../../components";
+import {CardGrid, Loading} from "../../components";
 
 let flag = true;
 

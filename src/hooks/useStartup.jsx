@@ -1,7 +1,8 @@
 import {useEffect} from 'react';
-import * as api from "./api";
 import {useDB} from "../context/DBContext";
 import {useAuth} from "../context/AuthContext";
+import * as api from "./api";
+import * as FIELDS from "../constants/fields";
 
 const useStartup = () => {
 
@@ -17,9 +18,9 @@ const useStartup = () => {
     // default sort for card group, grab the newest projects first (run once)
     useEffect(() => {
         console.log("First useEffect, getting first time data 😆")
-        getProjects("createdAt", "desc") // -> get all projects (listener)
+        getProjects(FIELDS.CREATED_AT, "desc") // -> get all projects (listener)
         getUserProjects() // if auth then get users projects
-        api.newRequestsListeners() //  -> if admin changes some projects from 'request' collection (listener)
+        api.newRequestsListeners(user.uid) //  -> if admin changes some projects from 'request' collection (listener)
         api.getStats(setStats); // -> listener to app stats
         // eslint-disable-next-line
     }, [])

@@ -1,38 +1,35 @@
-import {db} from "../firebase/fire";
+import {db} from "../firebase/firebase";
 import * as COLLECTIONS from "../constants/collections";
+import * as FIELDS from "../constants/fields";
 
 export async function addNewUser(id, email) {
-    const unsubscribe = await db.collection(COLLECTIONS.USERS)
-        .doc(id)
-        .set({
-            email: email,
-        }).then(() => {
-            console.log("+1 user to db");
-        }).catch(err => console.log(err))
-    return () => unsubscribe();
+    const docRef = db.collection(COLLECTIONS.USERS).doc(id)
+    return await docRef.set({
+        [FIELDS.EMAIL]: email,
+    }).then(() => {
+        console.log("+1 user to db");
+    }).catch(err => console.log(err))
 }
 
 export async function newRequest(Id, data) {
-    const unsubscribe = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
-        .doc(Id)
-        .set({
-            ...data,
-            Id: Id,
-            published: false
-        }).then(() => {
-            alert('Your request will be moderated soon!')
-        }).catch(err => alert(err))
-    return () => unsubscribe();
+    const docRef = db.collection(COLLECTIONS.PROJECTS_REQUESTS).doc(Id)
+    return await docRef.set({
+        ...data,
+        [FIELDS.ID]: Id,
+        [FIELDS.PUBLISHED]: false
+    }).then(() => {
+        alert('Your request will be moderated soon!')
+    }).catch(err => alert(err))
 }
 
-export async function newRequestsListeners() {
+export async function newRequestsListeners(currentUserUID) {
     const unsubscribe = await db.collection(COLLECTIONS.PROJECTS_REQUESTS)
-        .where("published", "==", true) // -> only those projects where the admin changed value to true
+        .where(FIELDS.PUBLISHED, "==", true) // -> only those projects where the admin changed value to true
         .onSnapshot(snapshot => {
             snapshot.docs.map(doc => {
                 const project = doc.data(); // get the data
-                upload(doc.id, project); // upload it to the new collection
-                addProjectToUser(project.userId, project); // link it to the user acc
+                upload(doc.id, project, currentUserUID); // upload it to the main projects collection
+                addProjectToUser(project, currentUserUID); // link it to the user acc
                 // delete this request
                 return db.collection(COLLECTIONS.PROJECTS_REQUESTS)
                     .doc(doc.id)
@@ -42,35 +39,38 @@ export async function newRequestsListeners() {
     return () => unsubscribe();
 }
 
-export async function upload(Id, data) {
-    return await db.collection(COLLECTIONS.PROJECTS)
-        .doc(Id)
-        .set({
-            ...data,
-            Id: Id,
-        }).then(() => {
+export async function upload(Id, project, currentUserUID) {
+    const docRef = db.collection(COLLECTIONS.PROJECTS).doc(Id)
+    return await docRef.set({
+        ...project,
+        [FIELDS.ID]: Id,
+    }).then(() => {
+        // if the project does not belongs to current user
+        if (currentUserUID !== project[FIELDS.USER_ID]) {
             alert('A new project was just uploaded! Go check it out')
-        }).catch(error => {
-            alert(error.message)
-        })
+        }
+    }).catch(error => {
+        alert(error.message)
+    })
 }
 
-export async function deleteProject(Id, userId) {
+export async function deleteProject(Id) {
     // first -> move it to the deleted projects collection
+    let userId;
     const moveToDeletedCollection = async () => {
         // get project data
         await getProjectById(Id)
             .then(async ({project, feedback}) => {
-            // update DeletedProjects collection
-            return await db.collection(COLLECTIONS.DELETED_PROJECTS)
-                .doc(project.Id)
-                .set({
-                    ...project,
-                    feedbacks: feedback,
-                })
-                .then()
-                .catch(err => console.log(err));
-        })
+                // update DeletedProjects collection
+                return await db.collection(COLLECTIONS.DELETED_PROJECTS)
+                    .doc(project[FIELDS.ID])
+                    .set({
+                        ...project,
+                        [FIELDS.FEEDBACKS]: feedback,
+                    })
+                    .then(() => userId = project[FIELDS.USER_ID]) // get the projects owner
+                    .catch(err => console.log(err));
+            })
     }
     // second -> delete the project from main projects collection
     moveToDeletedCollection().then(async () => {
@@ -89,7 +89,7 @@ export async function deleteProject(Id, userId) {
                     .doc(Id)
                     .delete()
                     .then(async () => {
-                        await db.collection(COLLECTIONS.USERS_PROJECTS)
+                        await db.collection(COLLECTIONS.USERS_PROJECTS) // third -> delete form users projects
                             .doc(userId)
                             .collection(COLLECTIONS.USER_PROJECTS)
                             .doc(Id)
@@ -102,28 +102,28 @@ export async function deleteProject(Id, userId) {
     });
 }
 
-export async function addProjectToUser(userId, project) {
+export async function addProjectToUser(project, currentUserUID) {
     // new doc with the user id in this collection or reference to previous user doc
-    const userDocument = db.collection(COLLECTIONS.USERS_PROJECTS).doc(userId)
-    const [response] = await Promise.all([userDocument.collection(COLLECTIONS.USER_PROJECTS)
-        .doc(project.Id)
+    const userDocument = db.collection(COLLECTIONS.USERS_PROJECTS).doc(project[FIELDS.USER_ID])
+    return await userDocument.collection(COLLECTIONS.USER_PROJECTS)
+        .doc(project[FIELDS.ID])
         .set({
-            ProjectName: project.projectName,
-            Id: project.Id,
+            [FIELDS.TITLE]: project[FIELDS.TITLE],
+            [FIELDS.ID]: project[FIELDS.ID],
         })
         .then(() => {
-            // todo: -> need to check if current user id == project user id && after display the alert
-            alert("Congratulations! A project has been assigned to your account!")
+            // if the current user is the owner of the newly approved project
+            if (currentUserUID === project[FIELDS.USER_ID]) {
+                alert("Congratulations! Your project was approved!")
+            }
         }).catch(error => {
             alert(error.message)
-        })]);
-    return response;
+        });
 }
 
 export async function getProjectById(Id) {
-    return await db.collection(COLLECTIONS.PROJECTS)
-        .doc(Id)
-        .get()
+    const docRef = db.collection(COLLECTIONS.PROJECTS).doc(Id)
+    return await docRef.get()
         .then(async (snapshot) => {
             const feedback = await getProjectFeedback(Id)
             const project = await snapshot.data()
@@ -132,10 +132,9 @@ export async function getProjectById(Id) {
 }
 
 export async function getProjectFeedback(Id) {
-    return db.collection(COLLECTIONS.PROJECTS)
-        .doc(Id)
+    const docRef = db.collection(COLLECTIONS.PROJECTS).doc(Id)
         .collection(COLLECTIONS.PROJECT_FEEDBACKS)
-        .get()
+    return docRef.get()
         .then((snapshot) => {
             let feedback = []
             snapshot.forEach(doc => {
@@ -146,41 +145,32 @@ export async function getProjectFeedback(Id) {
 }
 
 export async function sendFeedback(project, feedback, rating, user) {
-
-    return await db.collection(COLLECTIONS.PROJECTS)
-        .doc(project.Id)
-        .collection(COLLECTIONS.PROJECT_FEEDBACKS)
-        .doc(user.uid)
-        // update feedbacks collection
-        .set({
-            message: feedback,
-            email: user.email,
-            rating: rating,
-        }).then(async () => {
-            updateRating() // update
-            return await getProjectById(project.Id) // return the updated project
-        })
+    const docRef = db.collection(COLLECTIONS.PROJECTS).doc(project[FIELDS.ID])
+        .collection(COLLECTIONS.PROJECT_FEEDBACKS).doc(user.uid)
+    // update feedbacks collection
+    return await docRef.set({ // set, because users one user can not have multiple feedbacks on the same project
+        // 1 feedback only that he might change
+        [FIELDS.FEEDBACK_MESSAGE]: feedback,
+        [FIELDS.FEEDBACK_EMAIL]: user.email,
+        [FIELDS.FEEDBACK_RATING]: rating,
+    }).then(async () => {
+        // update rating value
+        updateRating().then()
+        return getProjectById(project.Id) // return the updated project
+    })
 
     function updateRating() {
         // update project rating
-        let currentProjectRating = project.rating
-        if (isNaN(currentProjectRating)) {
-            currentProjectRating = 5
-        }
-        let updatedRating = (currentProjectRating + rating) / 2
-        return db.collection(COLLECTIONS.PROJECTS)
-            .doc(project.Id)
-            .update({
-                "rating": updatedRating
-            })
+        const currentRating = project[FIELDS.RATING];
+        const updatedRating = (currentRating + rating) / 2;
+        const docRef = db.collection(COLLECTIONS.PROJECTS).doc(project[FIELDS.ID]);
+        return docRef.update({[FIELDS.FEEDBACK_RATING]: updatedRating});
     }
 }
 
 export async function isUserProject(Id, user) {
-    const docRef = db.collection(COLLECTIONS.USERS_PROJECTS)
-        .doc(user.uid)
-        .collection(COLLECTIONS.USER_PROJECTS)
-        .doc(Id)
+    const docRef = db.collection(COLLECTIONS.USERS_PROJECTS).doc(user.uid)
+        .collection(COLLECTIONS.USER_PROJECTS).doc(Id)
     const doc = await docRef.get() // get the doc
     // if doc exists -> true
     return !!doc.exists;

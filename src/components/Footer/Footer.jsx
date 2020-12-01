@@ -1,5 +1,5 @@
 import React from 'react';
-import LiveStats from "../LiveStats/LiveStats";
+import {LiveStats} from "../../components";
 
 const Footer = () => (
     <div className="footer-dark">

@@ -1,8 +1,9 @@
 import React, {useContext, useState} from 'react';
-import {db, storage} from "../firebase/fire";
+import {db, storage} from "../firebase/firebase";
 import {useAuth} from "./AuthContext";
 import * as api from "../hooks/api";
 import * as COLLECTIONS from "../constants/collections";
+import * as FIELDS from "../constants/fields";
 
 const DBContext = React.createContext();
 
@@ -49,7 +50,7 @@ export const DBProvider = ({children}) => {
     const getProjectsByYear = async (year) => {
         setLoading(true)
         return db.collection(COLLECTIONS.PROJECTS)
-            .where("year", "==", `${year}`)
+            .where(FIELDS.YEAR, "==", `${year}`)
             .onSnapshot((snapshot) => {
                 setProjects(snapshot.docs.map((doc) => doc.data()));
                 setDisplayedProjects(snapshot.docs.map((doc) => doc.data()));
@@ -58,39 +59,38 @@ export const DBProvider = ({children}) => {
     }
 
     // -> new request to updates/create project
-    const uploadProject = async (Id, form) => {
+    const uploadProject = async (Id, projectForm) => {
         // global storage reference
         const storageRef = storage.ref();
         // upload bg image to storage
-        const fileRef = storageRef.child(form.img.name);
-        await fileRef.put(form.img);
+        const fileRef = storageRef.child(projectForm[FIELDS.IMAGE_URL].name);
+        await fileRef.put(projectForm[FIELDS.IMAGE_URL]);
         // upload pdf report
-        const reportRef = storageRef.child(form.report.name);
-        await reportRef.put(form.report);
+        const reportRef = storageRef.child(projectForm[FIELDS.REPORT_URL].name);
+        await reportRef.put(projectForm[FIELDS.REPORT_URL]);
         // data object to be stored
         let data = {
-            projectName: form.title,
-            projectDescription: form.description,
-            projectProblemDescription: form.problemDescription,
-            projectTheoryDescription: form.theoryDescription,
-            projectImageURL: await fileRef.getDownloadURL(),
-            projectReportURL: await reportRef.getDownloadURL(),
-            year: form.year,
-            createdAt: new Date(),
-            userEmail: user.email,
-            userId: user.uid,
-            rating: 5,
+            [FIELDS.TITLE]: projectForm[FIELDS.TITLE],
+            [FIELDS.DESCRIPTION]: projectForm[FIELDS.DESCRIPTION],
+            [FIELDS.PROBLEM_DESCRIPTION]: projectForm[FIELDS.PROBLEM_DESCRIPTION],
+            [FIELDS.THEORY_DESCRIPTION]: projectForm[FIELDS.THEORY_DESCRIPTION],
+            [FIELDS.IMAGE_URL]: await fileRef.getDownloadURL(),
+            [FIELDS.REPORT_URL]: await reportRef.getDownloadURL(),
+            [FIELDS.YEAR]: projectForm[FIELDS.YEAR],
+            [FIELDS.CREATED_AT]: new Date(),
+            [FIELDS.USER_EMAIL]: user.email,
+            [FIELDS.USER_ID]: user.uid,
+            [FIELDS.RATING]: 5,
         }
-
         return api.newRequest(Id, data)
     }
 
     // submit new project with image, pdf report, inputs state
-    const addNewProject = async (formState) => {
-        // create a local document
+    const addNewProject = async (projectForm) => {
+        // create a document in projects collection && pass it's id
         const document = db.collection(COLLECTIONS.PROJECTS).doc()
         const documentId = document.id
-        await uploadProject(documentId, formState)
+        await uploadProject(documentId, projectForm)
     }
 
     // deleting the project by id
@@ -99,8 +99,8 @@ export const DBProvider = ({children}) => {
     }
 
     // updates the project in db
-    const updateProject = async (Id, form) => {
-        await uploadProject(Id, form)
+    const updateProject = async (Id, projectForm) => {
+        await uploadProject(Id, projectForm)
     }
 
     // get proj details + feedbacks details by id ( updates the state of the projectPage )

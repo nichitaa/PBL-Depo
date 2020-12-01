@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import PBLNavBar from "../NavBar/NavBar";
+import {PBLNavBar} from "../../components";
 import {useAuth} from "../../context/AuthContext";
 import history from "../../constants/history";
 

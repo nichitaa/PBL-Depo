@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Fuse from "fuse.js";
 import {useDB} from "../../context/DBContext";
 import s from './css/styles.module.css';
+import * as FIELDS from "../../constants/fields";
 
 const Search = () => {
     // for fuse live search
@@ -15,8 +16,8 @@ const Search = () => {
         // searching in allProjects
         const fuse = new Fuse(projects, {
             keys: [
-                'projectName',
-                'projectDescription',
+                FIELDS.TITLE,
+                FIELDS.DESCRIPTION,
             ]
         });
         const result = fuse.search(search).map(({item}) => item); // convert the result to array of objects

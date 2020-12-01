@@ -1,25 +1,37 @@
 // *********** Card Grid **********************
-export { default as  CardGrid } from './CardGrid/CardGrid';
-export { default as  OneCard } from './CardGrid/OneCard';
-export { default as FilterModal } from './CardGrid/FilterModal/FilterModal';
+export {default as CardGrid} from './CardGrid/CardGrid';
+export {default as OneCard} from './CardGrid/OneCard';
+export {default as FilterModal} from './CardGrid/FilterModal/FilterModal';
 
-// *********** Add new Project Form ************
-export { default as  AddFormModal } from './ProjectForm/AddFormModal';
-export { default as  AddFormContainer } from './containers/AddFormContainer';
-export { default as  EditForm } from './ProjectForm/EditForm';
+// *********** Project Form ************
+export {default as AddFormModal} from './ProjectForm/AddFormModal';
+export {default as EditForm} from './ProjectForm/EditForm';
 
 // *********** NavBar ***************************
-export { default as  NavBarContainer } from './containers/NavBarContainer';
-export { default as  NavBar } from './NavBar/NavBar';
+export {default as PBLNavBar} from './NavBar/NavBar';
 
-// *********** Loading Spiner ********************
-export { default as Loading } from './LoadingSpiner/Loading';
+// ********** Search ******************************
+export {default as Search} from './Search/Search';
+
+// ********** Filter *******************************
+export {default as Filter} from './Filter/Filter';
+
+// *********** Loading Spinner ********************
+export {default as Loading} from './LoadingSpiner/Loading';
 
 // *********** Footer ****************************
-export { default as Footer } from './Footer/Footer';
+export {default as Footer} from './Footer/Footer';
 
 // *********** BG ********************************
-export { default as Particles } from './ParticlesBackground/Particles';
+export {default as Particles} from './ParticlesBackground/Particles';
 
-export { default as LiveStats } from './LiveStats/LiveStats';
+// *********** Stats *****************************
+export {default as LiveStats} from './LiveStats/LiveStats';
 
+// ********* 404 **********************************
+export {default as PageNotFound} from './404/PageNotFound';
+
+// CONTAINERS
+export {default as AddFormContainer} from './containers/AddFormContainer';
+export {default as EditProjectContainer} from './containers/AddFormContainer';
+export {default as NavBarContainer} from './containers/NavBarContainer';

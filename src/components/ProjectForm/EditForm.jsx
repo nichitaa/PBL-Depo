@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, ButtonToolbar, Form, Alert} from "react-bootstrap";
+import * as FIELDS from "../../constants/fields";
 
 const EditForm = (props) => (
     <div className="row justify-content-center">
@@ -13,25 +14,25 @@ const EditForm = (props) => (
                 </Form.Label><br/>
                 <Form.Label>Project Name</Form.Label>
                 <Form.Control placeholder="enter project name or team name"
-                              name="title"
-                              value={props.formState.title}
+                              name={FIELDS.TITLE}
+                              value={props.formState[FIELDS.TITLE]}
                               onChange={props.onChangeHandler}/>
             </Form.Group>
             <Form.Group controlId="exampleForm.ControlTextarea1">
                 <Form.Label>Your short project intro</Form.Label>
                 <Form.Control as="textarea"
                               rows={5}
-                              name="description"
+                              name={FIELDS.DESCRIPTION}
                               placeholder="Short Intro"
-                              value={props.formState.description}
+                              value={props.formState[FIELDS.DESCRIPTION]}
                               onChange={props.onChangeHandler}/>
             </Form.Group>
             <Form.Group controlId="exampleForm.SelectCustomSizeSm">
                 <Form.Label>Student Year</Form.Label>
                 <Form.Control as="select" size="sm" custom
                               onChange={props.onChangeHandler}
-                              name="year"
-                              value={props.formState.year}
+                              name={FIELDS.YEAR}
+                              value={props.formState[FIELDS.YEAR]}
                 >
                     <option>1</option>
                     <option>2</option>
@@ -48,8 +49,8 @@ const EditForm = (props) => (
                               rows={5}
                               placeholder="Problem Description!
 What problem is suppose to solve your project idea ? "
-                              name="problemDescription"
-                              value={props.formState.problemDescription}
+                              name={FIELDS.PROBLEM_DESCRIPTION}
+                              value={props.formState[FIELDS.PROBLEM_DESCRIPTION]}
                               onChange={props.onChangeHandler}/>
                 <br/>
                 <Form.Control as="textarea"
@@ -57,8 +58,8 @@ What problem is suppose to solve your project idea ? "
                               placeholder="The theory details section!
 Describes the theoretical parts of your project
 Examples: Info about formulas, computations, statistics which u used at implementation "
-                              name="theoryDescription"
-                              value={props.formState.theoryDescription}
+                              name={FIELDS.THEORY_DESCRIPTION}
+                              value={props.formState[FIELDS.THEORY_DESCRIPTION]}
                               onChange={props.onChangeHandler}/>
                 <br/>
             </Form.Group>

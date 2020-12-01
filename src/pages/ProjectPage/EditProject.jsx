@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import * as ROUTES from "../../constants/routes";
-import {useDB} from "../../context/DBContext";
-import EditProjectContainer from "../../components/containers/EditProjectContainer";
-import {useAuth} from "../../context/AuthContext";
-import Loading from "../../components/LoadingSpiner/Loading";
 import history from "../../constants/history"
+import {useDB} from "../../context/DBContext";
+import {useAuth} from "../../context/AuthContext";
+import {EditProjectContainer, Loading} from "../../components";
+import * as ROUTES from "../../constants/routes";
 
 export default function EditProject({match}) {
 
@@ -37,7 +36,6 @@ export default function EditProject({match}) {
         }
         // eslint-disable-next-line
     }, [projectId])
-
 
     return (
         <div>

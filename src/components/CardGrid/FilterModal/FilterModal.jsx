@@ -3,25 +3,26 @@ import {Modal} from "react-bootstrap";
 import {Container} from "react-bootstrap";
 import {Button} from "react-bootstrap";
 import {useDB} from "../../../context/DBContext";
+import * as FIELDS from "../../../constants/fields";
 
 const FilterModal = () => {
 
     const { getProjects, getProjectsByYear } = useDB();
 
     const filterNewestFirst = (e) => {
-        getProjects("createdAt", "desc")
+        getProjects(FIELDS.CREATED_AT, "desc")
     }
 
     const filterOldestFirst = (e) => {
-        getProjects("createdAt", "asc")
+        getProjects(FIELDS.CREATED_AT, "asc")
     }
 
     const HghRatingFirst = () => {
-        getProjects("rating", "asc")
+        getProjects(FIELDS.RATING, "asc")
     }
 
     const LowRatingFirst = () => {
-        getProjects("rating", "desc")
+        getProjects(FIELDS.RATING, "desc")
     }
 
     const byYear = (year) => {
