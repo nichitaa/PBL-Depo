@@ -45,21 +45,21 @@ export default function ProjectPage({match}) {
     // runs when projectId changes
     useEffect(() => {
         setLoading(true);
-        setTimeout(() => {
-            setProjState([]) // set the state back to empty
-            console.log("useEffect on project id change🔥")
-            getProjectById(projectId) // get the new project data, by new id
-            if (user) {
-                // async function to get the promise from isUserProject
-                const getEditPermission = async () => {
-                    return await isUserProject(projectId) // true / false
-                }
-                // call async func
-                getEditPermission().then((response) => {
-                    console.log('Edit permission response: ', response)
-                    setEdit(response) // set edit permissions to the response from async func
-                })
+        setProjState([]) // set the state back to empty
+        console.log("useEffect on project id change🔥")
+        getProjectById(projectId) // get the new project data, by new id
+        if (user) {
+            // async function to get the promise from isUserProject
+            const getEditPermission = async () => {
+                return await isUserProject(projectId) // true / false
             }
+            // call async func
+            getEditPermission().then((response) => {
+                console.log('Edit permission response: ', response)
+                setEdit(response) // set edit permissions to the response from async func
+            })
+        }
+        setTimeout(() => {
             setLoading(false);
         }, 1000)
         // eslint-disable-next-line

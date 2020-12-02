@@ -2,6 +2,7 @@
 export {default as CardGrid} from './CardGrid/CardGrid';
 export {default as OneCard} from './CardGrid/OneCard';
 export {default as FilterModal} from './CardGrid/FilterModal/FilterModal';
+export {default as Pagination} from './CardGrid/Pagination/Pagination';
 
 // *********** Project Form ************
 export {default as AddFormModal} from './ProjectForm/AddFormModal';
