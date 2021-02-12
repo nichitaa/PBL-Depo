@@ -1,0 +1,284 @@
+#login:focus {
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#login:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#login:hover {
+	background-color: #36126b;
+	border-radius: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+#login {
+	width: auto;
+	margin-right: 10px;
+	border-radius: 30px;
+	background-color: #6622cc;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#signup:focus {
+	outline: none;
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#signup:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#signup:hover {
+	background-color: #c0934c;
+	border-radius: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+#nav-icon > * {
+	color: #155c25;
+}
+
+#signup {
+	border-radius: 20px;
+	background-color: #e2a94f;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#submit {
+	border-radius: 20px;
+	background-color: #e2a94f;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#submit:hover {
+	background-color: #c0934c;
+	border-radius: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+#submit:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#submit:focus {
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#read_more {
+	border-radius: 20px;
+	background-color: #b9658b;
+	border: none;
+	font-family: inherit;
+	color: white;
+	box-shadow: 6px 5px 12px 5px rgba(0, 0, 0, 0.36);
+	transition: all 0.1s ease-in-out;
+}
+
+#read_more:hover {
+	transform: scale(1.05);
+	transition: transform 0.2s;
+	background: linear-gradient(
+		90deg,
+		rgba(86, 151, 137, 1) 0%,
+		rgba(225, 210, 173, 1) 100%
+	);
+	border-radius: 20px;
+	color: black;
+	text-decoration: none;
+}
+
+#read_more:active {
+	/*box-shadow: 0 0 0 0 transparent;*/
+	/*border: 2px solid transparent;*/
+}
+
+#read_more:focus {
+	/*border: 2px solid transparent;*/
+	/*box-shadow: 0 0 0 0 transparent;*/
+}
+
+#search {
+	border-radius: 0px 20px 20px 0px;
+	background-color: #e2a94f;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#search:hover {
+	border-radius: 0px 20px 20px 0px;
+	background-color: #c0934c;
+	color: white;
+	text-decoration: none;
+}
+
+#search:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#search:focus {
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#page_no {
+	border-radius: 5px;
+	background-color: rgb(36, 86, 75);
+	border: none;
+	font-family: inherit;
+	color: white;
+	margin-left: 5px;
+	transition: all 0.1s ease-in-out;
+}
+
+#page_no:hover {
+	transform: scale(1.15);
+	transition: transform 0.2s;
+	background: linear-gradient(
+		90deg,
+		rgba(86, 151, 137, 1) 0%,
+		rgba(225, 210, 173, 1) 100%
+	);
+	color: black;
+	text-decoration: none;
+}
+
+#page_no:active {
+	/*box-shadow: 0 0 0 0 transparent;*/
+	/*border: 2px solid transparent;*/
+}
+
+#page_no:focus {
+	/*border: 2px solid transparent;*/
+	/*box-shadow: 0 0 0 0 transparent;*/
+}
+
+#leave_feedback {
+	border-radius: 20px;
+	background-color: #e2a94f;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#leave_feedback:hover {
+	background-color: #c0934c;
+	border-radius: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+#leave_feedback:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#leave_feedback:focus {
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#filter_semester {
+	border-radius: 20px;
+	background-color: #e2a94f;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#filter_semester:hover {
+	background-color: #c0934c;
+	border-radius: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+#filter_semester:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#filter_semester:focus {
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#filter_date {
+	border-radius: 20px;
+	background-color: #e2a94f;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#filter_date:hover {
+	background-color: #c0934c;
+	border-radius: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+#filter_date:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#filter_date:focus {
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#filter_rating {
+	border-radius: 20px;
+	background-color: #e2a94f;
+	border-color: transparent;
+	font-family: inherit;
+	color: white;
+	transition: all 0.1s ease-in-out;
+}
+
+#filter_rating:hover {
+	background-color: #c0934c;
+	border-radius: 20px;
+	color: white;
+	text-decoration: none;
+}
+
+#filter_rating:active {
+	box-shadow: 0 0 0 0 transparent;
+	border: 2px solid transparent;
+}
+
+#filter_rating:focus {
+	border: 2px solid transparent;
+	box-shadow: 0 0 0 0 transparent;
+}
+
+#login:disabled {
+	box-shadow: none;
+	border-color: transparent;
+}

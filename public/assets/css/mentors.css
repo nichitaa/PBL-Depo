@@ -1,0 +1,48 @@
+#mentor-name {
+  color: #f2f2f2;
+  text-decoration: none;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+#mentor-name:hover {
+  color: #ffa800;
+  text-decoration: underline;
+}
+
+#mentor-card {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 70vw;
+  word-wrap: break-word;
+  background-color: #6622cc;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .80rem;
+}
+
+#mentor-info {
+  font-weight: bold;
+  color: #f2f2f2;
+}
+
+#mentor-social {
+  font-size: x-large;
+  margin-right: 10px;
+}
+
+#accordion-2 {
+  margin-bottom: 10px;
+}
+
+#mentor-link {
+  color: #ffc05c;
+}
+
+#mentor-link:hover {
+  color: #2bebb2;
+}
+

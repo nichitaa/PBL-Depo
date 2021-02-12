@@ -1,0 +1,39 @@
+@media (min-width: 1200px) {
+	#scroll1 {
+		/*background-image: url("../../assets/img/xxl.png");*/
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+	#scroll1 {
+		/*background-image: url("../../assets/img/xl.png");*/
+	}
+}
+
+@media (max-width: 992px) {
+	#scroll1 {
+		/* background-image: url("../../assets/img/s.png"); */
+		background-position: center;
+	}
+}
+
+#scroll1 {
+	width: 100%;
+	height: 90vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+#title {
+	font-family: "Montserrat Black";
+	font-size: 40px;
+}
+
+#subtitle {
+	height: 50px;
+	font-size: 40px;
+	font-family: "Montserrat Black";
+	margin-top: 10px;
+}

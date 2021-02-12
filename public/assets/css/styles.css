@@ -1,0 +1,59 @@
+#body {
+  background: url("../../assets/img/pbl-depo-assets_poly-bg.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow-x: hidden;
+  backdrop-filter: blur(3px);
+
+  /*background-attachment: scroll;*/
+  /*background-image: url("../../assets/img/bg.png");*/
+  /*height: 100%;*/
+  /*width: 100%;*/
+  /*background-repeat: repeat-y;*/
+  /*background-size: contain;*/
+  /*background-color: #e0e0e0;*/
+}
+
+#page_number {
+  margin-top: 50px;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 20px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #676767;
+  border-radius: 20px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #c6c2c2;
+}
+
+#login_link {
+  color: blue;
+  text-decoration: underline;
+}
+
+#login_heading {
+  width: 265px;
+}
+
+#signup_heading {
+  width: 265px;
+}
+
+#nav-1 {
+  background-color: transparent;
+  margin-top: -15px;
+  font-family: Montserrat, sans-serif;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+

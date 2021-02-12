@@ -1,0 +1,51 @@
+.search {
+    margin: 10px;
+}
+
+.search > div {
+    display: inline-block;
+    position: relative;
+}
+
+.search > div:after {
+    content: "";
+    background: #cc5e37;
+    width: 5px;
+    height: 15px;
+    position: absolute;
+    top: 30px;
+    right: -2px;
+    transform: rotate(135deg);
+}
+
+.search > div > input {
+    color: #cc5e37;
+    font-size: 20px;
+    background: transparent;
+    width: 40px;
+    height: 40px;
+    padding: 10px 10px 10px 15px;
+    border: solid 4px #cc5e37;
+    outline: none;
+    border-radius: 35px;
+    transition: width 0.4s;
+    font-family: "Montserrat", serif;
+    text-transform: uppercase;
+    caret-color: auto;
+}
+
+.search > div > input::placeholder {
+    color: #cc5e37;
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+}
+
+.search > div > input:focus::placeholder {
+    opacity: 1;
+    caret-shape: underscore;
+}
+
+.search > div > input:focus,
+.search > div > input:not(:placeholder-shown) {
+    width: 450px;
+}

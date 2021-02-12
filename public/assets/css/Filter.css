@@ -1,0 +1,30 @@
+.filter select {
+	width: 150px;
+	padding: 5px;
+	border-radius: 5px;
+	border: none;
+	box-shadow: 0 0 2px #aaa;
+	margin: 10px;
+}
+
+#select-item {
+	color: #242020;
+	font-family: Montserrat, sans-serif;
+	outline: none;
+	text-align: center;
+	background: rgba(24, 204, 167, 0.7);
+}
+
+.filter {
+	text-align: center;
+}
+
+.filter input {
+	margin: 30px;
+	width: 170px;
+	padding: 20px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: none;
+	border-radius: 5px;
+}

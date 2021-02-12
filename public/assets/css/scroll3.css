@@ -1,0 +1,149 @@
+#zoom_paragraph {
+  color: rgb(255,255,255);
+  margin-top: 12px;
+}
+
+#scroll3_column1_paragraph {
+  margin-top: 35px;
+  margin-bottom: 0px;
+  font-size: 24px;
+  line-height: 38px;
+}
+
+#zoom_icon {
+  background-image: url("../../assets/img/search_icon.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 82px;
+}
+
+#list_icon {
+  background-image: url("../../assets/img/check_list.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 82px;
+}
+
+#add_team_icon2 {
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 82px;
+  background-image: url("../../assets/img/add_people.png");
+  background-position: center;
+  background-size: contain;
+}
+
+#add_team_paragraph {
+  color: rgb(255,255,255);
+  margin-top: 12px;
+}
+
+#list_paragraph {
+  color: rgb(255,255,255);
+  margin-top: 12px;
+}
+
+#scroll3_button_div {
+  margin-top: 12px;
+  margin-bottom: 45px;
+}
+
+#scroll3_button {
+  border-radius: 20px;
+  width: 131px;
+  padding-top: 0;
+}
+
+#scroll3_column1 {
+  background-color: white;
+  width: 100%;
+}
+
+#scroll3_container {
+  height: 399px;
+}
+
+#scroll3 {
+  width: 99%;
+  height: 100vh;
+  background-color: rgba(251,0,0,0);
+}
+
+#zoom_paragraph {
+  margin-left: 37px;
+  font-family: 'Montserrat Medium';
+  font-size: 17px;
+}
+
+#list_paragraph {
+  width: 292px;
+  font-family: 'Montserrat Medium';
+  font-size: 17px;
+}
+
+#add_team_paragraph {
+  width: 293px;
+  font-family: 'Montserrat Medium';
+  font-size: 17px;
+}
+
+#scroll3_column1_paragraph {
+  font-family: 'Montserrat Light';
+  font-size: 32px;
+}
+
+#our_team {
+  font-size: 44px;
+}
+
+#scroll3 {
+  width: 100%;
+}
+
+@media (max-width: 990px) {
+  .display-none {
+    display: none;
+  }
+}
+
+@media (min-width: 989px) {
+  .icon.ion-arrow-right-c.display-true {
+    display: none;
+  }
+}
+
+@media (max-width: 764px) {
+  .col-md-6.d-flex.d-md-flex.justify-content-center.align-items-center.justify-content-md-center.align-items-md-center {
+    background-color: #6622CC;
+    height: 77%;
+  }
+}
+
+#scroll3_row {
+  height: 393px;
+}
+
+#scroll3_column2 {
+  background-color: #6622CC;
+}
+
+#scroll3_column1_text {
+  height: 315px;
+}
+
+#find_icon {
+  margin-top: 11px;
+}
+
+#list_div {
+  margin-top: 33px;
+}
+
+#add_team_icon {
+  margin-top: 33px;
+}
+

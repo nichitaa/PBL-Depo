@@ -1,0 +1,79 @@
+#card_image {
+	margin-bottom: 20px;
+	width: 100%;
+	/*min-height: 180px;*/
+	/*height: 100%;*/
+	object-fit: cover;
+	border-radius: 20px 20px 0px 0px;
+}
+
+#card {
+	padding-bottom: 10px;
+	margin-top: 30px;
+	/*background: #3e8f7e;*/
+	background: linear-gradient(
+		130deg,
+		rgba(204, 94, 55, 1) 40%,
+		rgb(24, 204, 167) 100%
+	);
+	height: auto;
+	border-radius: 20px;
+}
+
+.text-center {
+	font-family: "Montserrat Medium", serif;
+	font-size: 14px;
+}
+
+#card_button {
+	margin-bottom: 16px;
+}
+
+#cell {
+	width: 20%;
+}
+
+#publish_date {
+	font-size: 10px;
+	margin-bottom: 10px;
+	margin-top: 5px;
+}
+
+#rating_stars {
+	color: white;
+	font-size: 20px;
+}
+
+#card_title {
+	text-align: center;
+	overflow-y: hidden;
+	margin-top: 20px;
+	height: 100px;
+}
+
+#card_front {
+	padding-bottom: 10px;
+	margin-top: 30px;
+	color: black;
+	background: rgb(54, 18, 107);
+	/*background: linear-gradient(161deg, #36126b 0%, rgba(226,169,79,0.7) 100%);*/
+	background: linear-gradient(
+		200deg,
+		rgba(54, 18, 107, 0.8676197041316527) 30%,
+		rgba(226, 169, 79, 0.8872275472689075) 100%
+	);
+	height: auto;
+	border-radius: 20px;
+}
+
+#card_description {
+	overflow-y: hidden;
+	height: 60px;
+	margin-bottom: 20px;
+}
+
+#card_front_title {
+	/* overflow-y: hidden; */
+	/* height: 90px; */
+	/* margin-top: 8vh; */
+}

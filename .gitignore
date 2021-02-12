@@ -1,0 +1,11 @@
+node_modules
+build
+.env.local
+database.rules.json
+firestore.indexes.json
+firestore.rules
+storage.rules
+yarn.lock
+.firebase
+debug.log
+package-lock.json

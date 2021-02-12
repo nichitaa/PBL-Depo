@@ -1,0 +1,58 @@
+{
+  "name": "pblv3",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/runtime": "^7.12.5",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "animated-number-react": "^0.1.1",
+    "bootstrap": "^4.5.3",
+    "d3-ease": "^2.0.0",
+    "firebase": "^8.0.1",
+    "fuse": "^0.4.0",
+    "fuse.js": "^6.4.3",
+    "history": "4.10.1",
+    "moment": "^2.29.1",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.4.0",
+    "react-circular-progressbar": "^2.0.3",
+    "react-dom": "^17.0.1",
+    "react-icons": "^3.11.0",
+    "react-lazy-load-image-component": "^1.5.1",
+    "react-loadingg": "^1.7.2",
+    "react-particles-js": "^3.4.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.0",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "firebase-admin": "^9.4.1",
+    "react-move": "^6.4.0"
+  }
+}

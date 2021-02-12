@@ -1,0 +1,25 @@
+.homeBtn {
+	position: absolute;
+	top: 65%;
+	left: 71%;
+	font-weight: bold;
+	font-size: 2rem;
+	padding: 0.5rem 1.5rem;
+	border: 3px solid rgba(255, 255, 255, 0.5);
+	border-radius: 0.5rem;
+	background-color: rgba(255, 255, 255, 0.5);
+	color: rgba(255, 255, 255, 0.6);
+
+	transition: all 0.2s ease-in-out;
+}
+
+.homeBtn:hover {
+	transform: scale(1.2) perspective(1px);
+	color: white;
+	border-color: white;
+	/* border: none; */
+}
+
+.homeBtn:focus {
+	outline: 0;
+}

@@ -1,0 +1,30 @@
+#nav_brand {
+  background-image: url("../../assets/img/PBL_Logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 126px;
+  height: 107px;
+  margin-right: 30px;
+}
+
+#nav_brand {
+  background-image: url("../../assets/img/PBL_Logo.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 126px;
+  height: 107px;
+  margin-right: 30px;
+}
+
+#pbl-nav-link {
+  color: black;
+  font-size: 16px;
+  font-family: Montserrat, sans-serif;
+}
+
+#pbl-nav-link:hover {
+  color: #3d3192;
+}
+
